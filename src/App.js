@@ -7,7 +7,7 @@ import Navbar from './components/Navbar';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Profile from './components/Profile';
-import Welcome from './components/Welcome';
+import Home from './components/Home';
 import About from './components/About';
 import Footer from './components/Footer';
 
@@ -76,7 +76,7 @@ function App()
           />
           <Route path="/about" component={About} />
           <PrivateRoute path="/profile" component={Profile} user={currentUser} />
-          <Route exact path="/" component={Welcome} />
+          <Route exact path="/" component={Home} />
         </Switch>
       </div>
       <Footer />
