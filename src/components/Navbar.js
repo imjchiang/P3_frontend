@@ -6,7 +6,7 @@ const Navbar = (props) =>
     return(
         <nav className = "navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
-                <Link className="navbar-brand" to="/">MERN Auth</Link>
+                <Link className="navbar-brand" to="/">exitcodeZERO</Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="#navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -17,7 +17,7 @@ const Navbar = (props) =>
                             <NavLink className="nav-link" exact to="/">Home</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/about">About</NavLink>
+                            <NavLink className="nav-link" to="/allPosts">See All Posts</NavLink>
                         </li>
                     </ul>
                     {

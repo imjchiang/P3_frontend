@@ -8,7 +8,7 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 import Profile from './components/Profile';
 import Home from './components/Home';
-import About from './components/About';
+import AllPosts from './components/AllPosts';
 import Footer from './components/Footer';
 
 import './App.css';
@@ -74,7 +74,10 @@ function App()
             path="/login" 
             render={(props) => <Login {...props} nowCurrentUser={nowCurrentUser} setIsAuthenticated={setIsAuthenticated} user={currentUser} />} 
           />
-          <Route path="/about" component={About} />
+          <Route 
+            path="/allPosts" 
+            render={(props) => <AllPosts {...props} user={currentUser} />}
+          />
           <PrivateRoute path="/profile" component={Profile} user={currentUser} />
           <Route exact path="/" component={Home} />
         </Switch>
