@@ -8,11 +8,12 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 import Profile from './components/Profile';
 import Home from './components/Home';
+import Post from './components/Post';
+import NewPost from './components/NewPost';
 import AllPosts from './components/AllPosts';
 import Footer from './components/Footer';
 
 import './App.css';
-import Post from './components/Post';
 
 const PrivateRoute = ({component: Component, ...rest}) =>
 {
@@ -80,9 +81,14 @@ function App()
             render={(props) => <AllPosts {...props} user={currentUser} />}
           />
           <Route
+            exact
             path="/post"
             render={(props)=> <Post />}>
-
+          </Route>
+          <Route
+            exact
+            path="/post/new"
+            render={(props)=> <NewPost />}>
           </Route>
           <PrivateRoute path="/profile" component={Profile} user={currentUser} />
           <Route exact path="/" component={Home} />
