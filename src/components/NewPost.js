@@ -4,7 +4,7 @@ import axios from 'axios';
 const NewPostForm = (props) => {
     let [title, setTitle]= useState("")
     let [tag, setTag] = useState("")
-    let [descriptionAndCode, setDescriptionAndCode] = useState("")
+    let [descriptionAndCode, setDescriptionAndCode] = useState([""])
 
     let submitForm = (e) => {
         e.preventDefault()
@@ -16,7 +16,7 @@ const NewPostForm = (props) => {
         .then(()=> {
             setTitle("")
             setTag("")
-            setDescriptionAndCode("")
+            setDescriptionAndCode([""])
         })
         // .then(()=>{
         //     //ALL states are SET then.
@@ -37,7 +37,7 @@ const NewPostForm = (props) => {
                     </div>
                     <div className="form-group col-md-6">
                     <label htmlFor="descriptionAndCode">Description or Code</label>
-                        <textarea type="text" name="descriptionAndCode" value={descriptionAndCode} onChange={(e) => {setDescriptionAndCode(e.target.value)}} className="form-control" required/>
+                        <textarea type="text" name="descriptionAndCode" value={descriptionAndCode} onChange={(e) => {setDescriptionAndCode([e.target.value])}} className="form-control" required/>
                     </div>
                     <div className="form-check form-check-inline">
                         <input type="checkbox" name="tag-html" onChange={(e) => {setTag(e.target.checked)}} />
