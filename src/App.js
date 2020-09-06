@@ -12,6 +12,7 @@ import AllPosts from './components/AllPosts';
 import Footer from './components/Footer';
 
 import './App.css';
+import Post from './components/Post';
 
 const PrivateRoute = ({component: Component, ...rest}) =>
 {
@@ -78,6 +79,11 @@ function App()
             path="/allPosts" 
             render={(props) => <AllPosts {...props} user={currentUser} />}
           />
+          <Route
+            path="/post"
+            render={(props)=> <Post />}>
+
+          </Route>
           <PrivateRoute path="/profile" component={Profile} user={currentUser} />
           <Route exact path="/" component={Home} />
         </Switch>
