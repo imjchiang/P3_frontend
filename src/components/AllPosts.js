@@ -4,7 +4,18 @@ import axios from "axios";
 
 const Feed = (props) =>
 {
-    console.log(props);
+    // console.log(props);
+    const [posts, setPosts] = useState([]);
+
+    useEffect(() => 
+    {
+        axios.get(`${process.env.REACT_APP_SERVER_URL}/api/posts/`)
+        .then(response => 
+        {
+            console.log(response.data);
+            setPosts(response.data);
+        });
+    }, []);
 
     //button for creating a new post
     const newPost = 
@@ -28,17 +39,6 @@ const Feed = (props) =>
         );
     };
 
-    const [posts, setPosts] = useState([])
-
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_SERVER_URL}/api/posts/`)
-    
-        .then(response => {
-            console.log(response)
-            setPosts(response.data)
-        })
-    }, [])
-
     //TODO: need function that...
         //grabs all posts 
         //styles the posts in JSX
@@ -51,17 +51,28 @@ const Feed = (props) =>
             {props.user ? newPost : errorDiv()}
             <hr />
             <div>
-            {/* {props.posts.map(post => {
-                let location = {
+            {posts.map(post => 
+            {
+                let location = 
+                {
                     pathname: '/post',
                     state: post
                 }
+                // `/post/${post._id}`
                 return (
-                    <Link to={location} key={post.title}>
-                    {post.title}
-                    </Link>
+                    <div>
+                        <Link to={location} key={post._id}>
+                            {post.title}
+                        </Link>
+                        <br/>
+                        {post.author}
+                        <br/>
+                        {post.descriptionAndCode}
+                        <br/>
+                        <hr />
+                    </div>
                 )
-            }) } */}
+            }) }
             </div>
         </div>
     )

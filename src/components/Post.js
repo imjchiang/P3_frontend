@@ -6,17 +6,22 @@ function Post(props) {
 
     return(
         <div>
-            <h1>We are looking at a specific post</h1>
-            <p>{post.title}</p>
-            <p>{post.tags}</p>
-            <p>{post.descriptionsAndCode}</p>
-            <p>{post.author}</p>
-            <p>{post.upvote}</p>
-            <p>{post.downvote}</p>
-            <p>{post.solve}</p>
-            <p>{post.date}</p>
-            <NewComment />
-            
+            {post ? 
+                <>
+                    <h1>We are looking at a specific post</h1>
+                    <p>Title: {post.title}</p>
+                    {/* <p>{post.tags}</p> */}
+                    <p>Description: {post.descriptionAndCode}</p>
+                    {/* <p>Author: {post.author}</p> */}
+                    {/* <p>{post.upvote}</p> */}
+                    {/* <p>{post.downvote}</p> */}
+                    <p>Status: {post.solve ? "SOLVED" : "NOT SOLVED"}</p>
+                    <p>Date: {post.date}</p>
+                    <NewComment />
+                </>
+            : 
+                <h3>Loading...</h3>
+            }
         </div>
     )
 }
