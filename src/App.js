@@ -81,9 +81,9 @@ function App()
             render={(props) => <AllPosts {...props} user={currentUser} />}
           />
           <Route
-            exact
+            
             path="/post"
-            render={(props)=> <Post />}>
+            render={({location})=> <Post location={location}/>}>
           </Route>
           <Route
             exact

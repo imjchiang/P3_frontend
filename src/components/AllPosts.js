@@ -32,7 +32,9 @@ const Feed = (props) =>
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_SERVER_URL}/api/posts/`)
+    
         .then(response => {
+            console.log(response)
             setPosts(response.data)
         })
     }, [])
