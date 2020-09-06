@@ -1,5 +1,6 @@
 import React, { useState } from 'react' ;
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 const NewPostForm = (props) => {
     let [title, setTitle]= useState("")
@@ -18,10 +19,9 @@ const NewPostForm = (props) => {
             setTag("")
             setDescriptionAndCode([""])
         })
-        // .then(()=>{
-        //     //ALL states are SET then.
-        //     props.refreshPosts()
-        // })
+        .then(()=> {
+            return <Redirect to="/feed" />
+        })
         .catch(error => console.log(error))
     }
 
