@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 const Feed = (props) =>
 {
@@ -27,6 +28,15 @@ const Feed = (props) =>
         );
     };
 
+    const [posts, setPosts] = useState([])
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_SERVER_URL}/api/posts/`)
+        .then(response => {
+            setPosts(response.data)
+        })
+    }, [])
+
     //TODO: need function that...
         //grabs all posts 
         //styles the posts in JSX
@@ -38,7 +48,19 @@ const Feed = (props) =>
             <h1>Posts and Questions</h1>
             {props.user ? newPost : errorDiv()}
             <hr />
-            {/* display the posts here */}
+            <div>
+            {props.posts.map(post => {
+                let location = {
+                    pathname: '/post',
+                    state: post
+                }
+                return (
+                    <Link to={location} key={post.title}>
+                    {post.title}
+                    </Link>
+                )
+            }) }
+            </div>
         </div>
     )
 }
