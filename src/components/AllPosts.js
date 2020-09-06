@@ -51,7 +51,7 @@ const Feed = (props) =>
             {props.user ? newPost : errorDiv()}
             <hr />
             <div>
-            {props.posts.map(post => {
+            {/* {props.posts.map(post => {
                 let location = {
                     pathname: '/post',
                     state: post
@@ -61,7 +61,7 @@ const Feed = (props) =>
                     {post.title}
                     </Link>
                 )
-            }) }
+            }) } */}
             </div>
         </div>
     )

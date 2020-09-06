@@ -20,7 +20,7 @@ const NewPostForm = (props) => {
             setDescriptionAndCode([""])
         })
         .then(()=> {
-            return <Redirect to="/feed" />
+            return <Redirect to="/allPosts" />
         })
         .catch(error => console.log(error))
     }

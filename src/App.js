@@ -77,16 +77,15 @@ function App()
             render={(props) => <Login {...props} nowCurrentUser={nowCurrentUser} setIsAuthenticated={setIsAuthenticated} user={currentUser} />} 
           />
           <Route 
-            path="/feed" 
+            path="/allPosts" 
             render={(props) => <AllPosts {...props} user={currentUser} />}
           />
           <Route
-            
+            exact
             path="/post"
             render={({location})=> <Post location={location}/>}>
           </Route>
           <Route
-            exact
             path="/post/new"
             render={(props)=> <NewPost />}>
           </Route>
