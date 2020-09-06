@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios';
+import NewComment from './NewComment'
 
 function Post(props) {
     let post = props.location.state;
@@ -15,6 +15,7 @@ function Post(props) {
             <p>{post.downvote}</p>
             <p>{post.solve}</p>
             <p>{post.date}</p>
+            <NewComment />
             
         </div>
     )
