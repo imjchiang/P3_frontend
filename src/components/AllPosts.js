@@ -55,7 +55,7 @@ const Feed = (props) =>
             {
                 let location = 
                 {
-                    pathname: '/post',
+                    pathname: `/post`,
                     state: post
                 }
                 // `/post/${post._id}`
@@ -65,7 +65,7 @@ const Feed = (props) =>
                             {post.title}
                         </Link>
                         <br/>
-                        {post.author}
+                        {post.author ? post.author.name : "No author available"}
                         <br/>
                         {post.descriptionAndCode}
                         <br/>

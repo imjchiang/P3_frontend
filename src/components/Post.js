@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import NewComment from './NewComment'
+import axios from 'axios';
 
 function Post(props) {
-    let post = props.location.state;
+    let referencedPost = props.location.state;
+    let [post, setPost] = useState();
+
+    useEffect(() =>
+    {
+        axios.get(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost._id}`)
+        .then(response =>
+        {
+            console.log(response.data);
+            setPost(response.data);
+        });
+    }, []);
 
     return(
         <div>
@@ -12,8 +24,8 @@ function Post(props) {
                     <p>Title: {post.title}</p>
                     {/* <p>{post.tags}</p> */}
                     <p>Description: {post.descriptionAndCode}</p>
-                    <p>Author: {post.author}</p>
-                    {console.log(post.author)}
+                    <p>Author: {post.author.name}</p>
+                    {console.log(post.author.name)}
                     {/* <p>{post.upvote}</p> */}
                     {/* <p>{post.downvote}</p> */}
                     <p>Status: {post.solve ? "SOLVED" : "NOT SOLVED"}</p>
