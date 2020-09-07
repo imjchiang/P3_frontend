@@ -83,7 +83,7 @@ function App()
           <Route
             exact
             path="/post"
-            render={({location})=> <Post location={location}/>}>
+            render={({location},props)=> <Post {...props} location={location} user={currentUser}/>}>
           </Route>
           <Route
             path="/post/new"

@@ -10,19 +10,27 @@ function Post(props) {
     {
         axios.get(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost._id}`)
         .then(response =>
-        {
+            {
+        
             console.log(response.data);
             setPost(response.data);
         });
     }, []);
 
+   
+
     return(
         <div>
             {post ? 
-                <>
-                    <h1>We are looking at a specific post</h1>
+                <div>
+                    <h5>We are looking at a specific post</h5>
                     <p>Title: {post.title}</p>
-                    {/* <p>{post.tags}</p> */}
+                    <p>Tags: {post.tags.map((p)=>{
+                        
+                        return <li>{p.name}</li>
+                        
+                    })
+                    }</p>
                     <p>Description: {post.descriptionAndCode}</p>
                     <p>Author: {post.author.name}</p>
                     {console.log(post.author.name)}
@@ -30,8 +38,11 @@ function Post(props) {
                     {/* <p>{post.downvote}</p> */}
                     <p>Status: {post.solve ? "SOLVED" : "NOT SOLVED"}</p>
                     <p>Date: {post.date}</p>
-                    <NewComment />
-                </>
+                    <p>{post.comments.map((c)=>{
+                        return <div>{c.descriptionAndCode}, {c.author.name}</div>
+                    })}</p>
+                    <NewComment {...props} postId={post._id}/>
+                </div>
             : 
                 <h3>Loading...</h3>
             }
