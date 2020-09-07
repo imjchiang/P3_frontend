@@ -22,12 +22,12 @@ function Post(props) {
     return(
         <div>
             {post ? 
-                <>
-                    <h1>We are looking at a specific post</h1>
+                <div>
+                    <h5>We are looking at a specific post</h5>
                     <p>Title: {post.title}</p>
                     <p>Tags: {post.tags.map((p)=>{
                         
-                        return <div>{p.name}</div>
+                        return <li>{p.name}</li>
                         
                     })
                     }</p>
@@ -38,8 +38,11 @@ function Post(props) {
                     {/* <p>{post.downvote}</p> */}
                     <p>Status: {post.solve ? "SOLVED" : "NOT SOLVED"}</p>
                     <p>Date: {post.date}</p>
+                    <p>{post.comments.map((c)=>{
+                        return <div>{c.descriptionAndCode}, {c.author.name}</div>
+                    })}</p>
                     <NewComment />
-                </>
+                </div>
             : 
                 <h3>Loading...</h3>
             }

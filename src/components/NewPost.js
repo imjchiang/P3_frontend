@@ -4,7 +4,7 @@ import { useHistory} from 'react-router-dom';
 
 const NewPostForm = (props) => {
     let [title, setTitle]= useState("")
-    let [tags, setTags] = useState([""])
+    let [tags, setTags] = useState([])
     let [descriptionAndCode, setDescriptionAndCode] = useState([""])
     let [allTags, setAllTags] = useState("");
     let history = useHistory()
@@ -31,10 +31,10 @@ const NewPostForm = (props) => {
         axios.post(`${process.env.REACT_APP_SERVER_URL}/api/posts/`, newPost)
         .then(()=> {
             setTitle("")
-            setTags([""])
+            setTags([])
             setDescriptionAndCode([""])
             // setAuthor(props.user.id);
-        //    history.push("/allPosts")
+           history.push("/allPosts")
         })
         .catch(error => console.log(error))
     }
@@ -60,7 +60,26 @@ const NewPostForm = (props) => {
                                     {
                                         return(
                                             <div key={idx} className="form-check form-check-inline">
-                                                <input type="checkbox" name={"tag-" + eachTag.name} value={eachTag._id} onChange={(e) => {setTags([e.target.value])}} />
+                                                <input type="checkbox" name={"tag-" + eachTag.name} value={eachTag._id} onChange={(e) => {
+                                                    if(e.target.checked) {
+                                                        if (tags.length >= 5) {
+                                                            alert("Max 5 tags!")
+                                                            e.preventDefault()
+                                                            return
+                                                        }
+                                                        let newTags = []
+                                                        newTags = newTags.concat(tags,[e.target.value] )
+                                                        console.log(newTags)
+                                                        setTags(newTags) 
+                                                    } else {
+                                                        let newTags = []
+                                                        newTags = tags.filter((t)=>{
+                                                            return t != e.target.value
+
+                                                        })
+                                                        setTags(newTags)
+                                                    }
+                                                            }} />
                                                 <label className="form-check-label" htmlFor={"tag-" + eachTag.name}>{eachTag.name}</label>
                                             </div>
                                         )

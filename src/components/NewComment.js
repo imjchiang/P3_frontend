@@ -31,10 +31,7 @@ const NewComment = (props) => {
                     <label htmlFor="descriptionAndCode">Description or Code</label>
                         <textarea type="text" name="descriptionAndCode" value={descriptionAndCode} onChange={(e) => {setDescriptionAndCode([e.target.value])}} className="form-control" required/>
                     </div>
-                    <div className="form-group col-md-6">
-                    <label htmlFor="author">Title</label>
-                        <input type="author" name="author" value={author} onChange={(e) => {setAuthor(e.target.value)}} className="form-control" required/>
-                    </div>
+                    
                     <button type="submit" className="btn btn-primary">Submit</button>
             </form>
         </div>
