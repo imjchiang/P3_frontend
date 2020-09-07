@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react' ;
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 
 const NewPostForm = (props) => {
     let [title, setTitle]= useState("")
-    let [tag, setTag] = useState([""])
+    let [tags, setTags] = useState([""])
     let [descriptionAndCode, setDescriptionAndCode] = useState([""])
     let [allTags, setAllTags] = useState("");
+    let history = useHistory()
 
     useEffect(() =>
     {
         axios.get(`${process.env.REACT_APP_SERVER_URL}/api/tags`)
         .then(response =>
         {
-            // console.log(response.data);
+            console.log(response.data);
             setAllTags(response.data);
         });
     }, []);
@@ -23,19 +24,17 @@ const NewPostForm = (props) => {
     let submitForm = (e) => {
         e.preventDefault()
         // passing state variable works for key and value pair
-        console.log(tag);
+        console.log(tags);
         let author = props.user.id;
-        let newPost = { title, descriptionAndCode, tag, author }
+        let newPost = { title, descriptionAndCode, tags, author }
         console.log(author);
         axios.post(`${process.env.REACT_APP_SERVER_URL}/api/posts/`, newPost)
         .then(()=> {
             setTitle("")
-            setTag([""])
+            setTags([""])
             setDescriptionAndCode([""])
             // setAuthor(props.user.id);
-        })
-        .then(()=> {
-            return <Redirect to="/allPosts" />
+        //    history.push("/allPosts")
         })
         .catch(error => console.log(error))
     }
@@ -61,7 +60,7 @@ const NewPostForm = (props) => {
                                     {
                                         return(
                                             <div key={idx} className="form-check form-check-inline">
-                                                <input type="checkbox" name={"tag-" + eachTag.name} value={eachTag._id} onChange={(e) => {setTag([e.target.value])}} />
+                                                <input type="checkbox" name={"tag-" + eachTag.name} value={eachTag._id} onChange={(e) => {setTags([e.target.value])}} />
                                                 <label className="form-check-label" htmlFor={"tag-" + eachTag.name}>{eachTag.name}</label>
                                             </div>
                                         )

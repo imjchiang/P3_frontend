@@ -10,11 +10,14 @@ function Post(props) {
     {
         axios.get(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost._id}`)
         .then(response =>
-        {
+            {
+        
             console.log(response.data);
             setPost(response.data);
         });
     }, []);
+
+   
 
     return(
         <div>
@@ -22,7 +25,12 @@ function Post(props) {
                 <>
                     <h1>We are looking at a specific post</h1>
                     <p>Title: {post.title}</p>
-                    {/* <p>{post.tags}</p> */}
+                    <p>Tags: {post.tags.map((p)=>{
+                        
+                        return <div>{p.name}</div>
+                        
+                    })
+                    }</p>
                     <p>Description: {post.descriptionAndCode}</p>
                     <p>Author: {post.author.name}</p>
                     {console.log(post.author.name)}
