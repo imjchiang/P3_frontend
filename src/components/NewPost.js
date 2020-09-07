@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 const NewPostForm = (props) => {
     let [title, setTitle]= useState("")
-    let [tag, setTag] = useState("")
+    let [tag, setTag] = useState([""])
     let [descriptionAndCode, setDescriptionAndCode] = useState([""])
     let [allTags, setAllTags] = useState("");
 
@@ -23,13 +23,14 @@ const NewPostForm = (props) => {
     let submitForm = (e) => {
         e.preventDefault()
         // passing state variable works for key and value pair
+        console.log(tag);
         let author = props.user.id;
         let newPost = { title, descriptionAndCode, tag, author }
         console.log(author);
         axios.post(`${process.env.REACT_APP_SERVER_URL}/api/posts/`, newPost)
         .then(()=> {
             setTitle("")
-            setTag("")
+            setTag([""])
             setDescriptionAndCode([""])
             // setAuthor(props.user.id);
         })
@@ -60,7 +61,7 @@ const NewPostForm = (props) => {
                                     {
                                         return(
                                             <div key={idx} className="form-check form-check-inline">
-                                                <input type="checkbox" name={"tag-" + eachTag.name} onChange={(e) => {setTag(e.target.checked)}} />
+                                                <input type="checkbox" name={"tag-" + eachTag.name} value={eachTag._id} onChange={(e) => {setTag([e.target.value])}} />
                                                 <label className="form-check-label" htmlFor={"tag-" + eachTag.name}>{eachTag.name}</label>
                                             </div>
                                         )
