@@ -87,7 +87,7 @@ function App()
           </Route>
           <Route
             path="/post/new"
-            render={(props)=> <NewPost />}>
+            render={(props)=> <NewPost {...props} user={currentUser} />}>
           </Route>
           <PrivateRoute path="/profile" component={Profile} user={currentUser} />
           <Route exact path="/" component={Home} />

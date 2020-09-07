@@ -12,7 +12,8 @@ function Post(props) {
                     <p>Title: {post.title}</p>
                     {/* <p>{post.tags}</p> */}
                     <p>Description: {post.descriptionAndCode}</p>
-                    {/* <p>Author: {post.author}</p> */}
+                    <p>Author: {post.author}</p>
+                    {console.log(post.author)}
                     {/* <p>{post.upvote}</p> */}
                     {/* <p>{post.downvote}</p> */}
                     <p>Status: {post.solve ? "SOLVED" : "NOT SOLVED"}</p>
