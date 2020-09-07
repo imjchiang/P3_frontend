@@ -41,7 +41,7 @@ function Post(props) {
                     <p>{post.comments.map((c)=>{
                         return <div>{c.descriptionAndCode}, {c.author.name}</div>
                     })}</p>
-                    <NewComment />
+                    <NewComment {...props} postId={post._id}/>
                 </div>
             : 
                 <h3>Loading...</h3>

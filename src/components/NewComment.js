@@ -2,19 +2,19 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import {Redirect} from 'react-router-dom'
 
+
 const NewComment = (props) => {
-    let [descriptionAndCode, setDescriptionAndCode] = useState([""])
-    let [author, setAuthor] = useState("")
+    let [descriptionAndCode, setDescriptionAndCode] = useState([""]) 
 
     let submitForm = (e) => {
         e.preventDefault()
         // passing state variable works for key and value pair
+        let author = props.user.id
         let newComment = { descriptionAndCode, author}
-        // console.log(newPost);
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/api/posts/comment`)
-        // .then(response => response.json())
+        console.log(newComment);
+        axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/` + props.postId, newComment)
         .then(()=> {
-            setAuthor("")
+            
             setDescriptionAndCode([""])
         })
         .then(()=> {
