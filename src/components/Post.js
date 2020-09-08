@@ -72,7 +72,7 @@ function Post(props) {
                     <p>Date: {post.date}</p>
 
                     {/* post author has option to delete or edit post */}
-                    {props.user.id === post.author._id
+                    {props.user && props.user.id === post.author._id
                     ?
                         <div className="edit-and-delete">
                             <Link to={location} key={post._id}>Edit</Link>
