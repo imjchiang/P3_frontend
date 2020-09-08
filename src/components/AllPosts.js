@@ -45,7 +45,7 @@ const Feed = (props) =>
             {props.user ? newPost : errorDiv()}
             <hr />
             <div>
-            {posts.map(post => 
+            {posts.map((post, idx) => 
             {
                 let location = 
                 {
@@ -54,7 +54,7 @@ const Feed = (props) =>
                 }
                 // `/post/${post._id}`
                 return (
-                    <div>
+                    <div key={idx}>
                         <Link to={location} key={post._id}>
                             {post.title}
                         </Link>

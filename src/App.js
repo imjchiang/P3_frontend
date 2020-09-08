@@ -64,7 +64,7 @@ function App()
     }
   };
 
-  console.log("Current User", currentUser);
+  // console.log("Current User", currentUser);
   console.log("Authenticated", isAuthenticated);
 
   return (
