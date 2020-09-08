@@ -39,12 +39,6 @@ const Feed = (props) =>
         );
     };
 
-    //TODO: need function that...
-        //grabs all posts 
-        //styles the posts in JSX
-        //throws all the posts into an array
-        // return the array of posts
-
     return(
         <div>
             <h1>Posts and Questions</h1>
