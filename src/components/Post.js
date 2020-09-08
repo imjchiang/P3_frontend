@@ -64,7 +64,7 @@ function Post(props) {
                     })
                     }</p>
                     <p>Description: {post.descriptionAndCode}</p>
-                    <p>Author: {post.author.name ? post.author.name : "No Author Data Available"}</p>
+                    <p>Author: {post.author && post.author.name ? post.author.name : "No Author Data Available"}</p>
                     {/* {console.log(post.author.name)} */}
                     {/* <p>{post.upvote}</p> */}
                     {/* <p>{post.downvote}</p> */}
@@ -72,7 +72,7 @@ function Post(props) {
                     <p>Date: {post.date}</p>
 
                     {/* post author has option to delete or edit post */}
-                    {props.user && props.user.id === post.author._id
+                    {props.user && post.author && props.user.id === post.author._id
                     ?
                         <div className="edit-and-delete">
                             <Link to={location} key={post._id}>Edit</Link>

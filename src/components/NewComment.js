@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import {Redirect} from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 
 const NewComment = (props) => {
@@ -36,7 +36,14 @@ const NewComment = (props) => {
                     <label htmlFor="descriptionsAndCode">Description or Code</label>
                         <textarea type="text" name="descriptionsAndCode" value={descriptionsAndCode} onChange={(e) => {setDescriptionsAndCode([e.target.value])}} className="form-control" required/>
                 </div>
-                <button onClick={refreshPage} type="submit" className="btn btn-primary">Submit</button>
+                {props.user
+                ?
+                    <button onClick={refreshPage} type="submit" className="btn btn-primary">Submit</button>
+                :
+                    <Link to="/login">
+                        <button className="btn btn-primary">Login to Comment</button>
+                    </Link>
+                }
             </form>
         </div>
     )
