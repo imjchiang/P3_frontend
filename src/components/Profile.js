@@ -1,18 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 const Profile = (props) =>
 {
-    console.log(props);
-    const userData = props.user ? 
-    (<div>
-        <h1>Profile</h1>
-        <p><strong>Name:</strong> {props.user.name}</p>
-        <p><strong>Email:</strong> {props.user.email}</p>
-        <p><strong>ID:</strong> {props.user.id}</p>
-    </div>)
-    :
-    <h4>Loading...</h4>;
+    // console.log(props);
+    const [posts, setPosts] = useState([]);
+    
+    let totalPosts = 0;
+    posts.map((post, idx) => 
+    {
+        if (post.author && post.author._id === props.user.id)
+        {
+            totalPosts++;
+        }
+    });
+
+    useEffect(() => 
+    {
+        axios.get(`${process.env.REACT_APP_SERVER_URL}/api/posts/`)
+        .then(response => 
+        {
+            console.log(response.data);
+            setPosts(response.data);
+        });
+    }, []);
 
     const errorDiv = () =>
     {
@@ -25,7 +37,61 @@ const Profile = (props) =>
 
     return(
         <div>
-            {props.user ? userData : errorDiv()}
+            {props.user 
+            ? 
+                <>
+                    <h1>{props.user.name}'s Profile</h1>
+                    <hr />
+
+                    <h3>Info</h3>
+                    <p><strong>Email:</strong> {props.user.email}</p>
+                    <p><strong>Number of Posts:</strong> {totalPosts}</p>
+                    <p><strong>Number of Posts Commented On:</strong> 346554265</p>
+                    <hr />
+
+                    <h3>{props.user.name}'s Posts</h3>
+                    <div>
+                        {posts.map((post, idx) => 
+                        {
+                            if (post.author && post.author._id === props.user.id)
+                            {
+                                totalPosts++;
+                                console.log(totalPosts);
+
+                                let location = 
+                                {
+                                    pathname: `/post`,
+                                    state: post
+                                }
+                                return (
+                                    <div key={idx}>
+                                        <Link to={location} key={post._id}>
+                                            {post.title}
+                                        </Link>
+                                        <br/>
+                                        {console.log(post.author)}
+                                        <br/>
+                                        {post.descriptionAndCode}
+                                        <br/>
+                                        <hr />
+                                    </div>
+                                )
+                            }
+                        })}
+                    </div>
+                    {/* <p>YEET</p>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br /> */}
+                </>
+            : 
+                errorDiv()
+            }
         </div>
     )
 }

@@ -35,7 +35,7 @@ function Post(props) {
     }
     //delete comment
     const deleteComment = () => {
-        axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost._id}/comments`)
+        axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost._id}/comments/delete`)
         .then(response =>
         {
             console.log(response.data);

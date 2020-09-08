@@ -11,9 +11,9 @@ const EditComment = (props) => {
         e.preventDefault()
         // passing state variable works for key and value pair
         let author = props.user.id
-        let newComment = { descriptionsAndCode, author}
-        console.log(newComment);
-        axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${props.postId}/comments`, newComment)
+        let editComment = { descriptionsAndCode, author }
+        console.log(editComment);
+        axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${props.postId}/comments/edit`, editComment)
         .then(()=> {
             setDescriptionsAndCode("")
             history.goBack()
