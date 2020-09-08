@@ -47,14 +47,8 @@ function Post(props) {
         <div>
             {post ? 
                 <div>
-                    <h3>We are looking at a specific post</h3>
-                    <p>Title: {post.title}</p>
-                    <p>Tags: {post.tags.map((p, idx)=>{
-                        
-                        return <li key={idx}>{p.name}</li>
-                        
-                    })
-                    }</p>
+                    <h3>{post.title}</h3>
+                    <p>Tags: {post.tags.map((p, idx) => {return <li key={idx}>{p.name}</li>})}</p>
                     <p>Description: {post.descriptionAndCode}</p>
                     <p>Author: {post.author && post.author.name ? post.author.name : "No Author Data Available"}</p>
                     {/* {console.log(post.author.name)} */}
