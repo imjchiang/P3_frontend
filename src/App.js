@@ -12,6 +12,7 @@ import Post from './components/Post';
 import NewPost from './components/NewPost';
 import AllPosts from './components/AllPosts';
 import Footer from './components/Footer';
+import EditPost from './components/EditPost'
 
 import './App.css';
 
@@ -88,6 +89,10 @@ function App()
           <Route
             path="/post/new"
             render={(props)=> <NewPost {...props} user={currentUser} />}>
+          </Route>
+          <Route
+            path="/post/edit"
+            render={(props)=> <EditPost {...props} user={currentUser} />}>
           </Route>
           <PrivateRoute path="/profile" component={Profile} user={currentUser} />
           <Route exact path="/" component={Home} />

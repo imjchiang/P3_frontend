@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import {Redirect} from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import NewComment from './NewComment'
 import axios from 'axios';
 
 function Post(props) {
     let referencedPost = props.location.state;
     let [post, setPost] = useState();
+    let history = useHistory()
 
     // let [descriptionsAndCode, setDescriptionsAndCode] = useState("") 
 
@@ -18,6 +19,22 @@ function Post(props) {
             setPost(response.data);
         });
     }, []);
+
+    let location = 
+                {
+                    pathname: `/post/edit`,
+                    state: post
+                }
+    
+    //delete post
+    const deletePost = () => {
+        axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost._id}`)
+        .then(response =>
+        {
+            console.log(response.data);
+            history.push('/allPosts')
+        });
+    }
 
     // let submitForm = (e) => 
     // {
@@ -61,6 +78,14 @@ function Post(props) {
                     {/* <p>{post.downvote}</p> */}
                     <p>Status: {post.solve ? "SOLVED" : "NOT SOLVED"}</p>
                     <p>Date: {post.date}</p>
+
+                    <div>
+                    <Link to={location} key={post._id}>
+                                    edit
+                    </Link>
+                    </div>
+                    <button onClick={deletePost}>delete</button>
+
                     <hr />
                     <h5>Comments</h5>
                     <br />
@@ -73,6 +98,7 @@ function Post(props) {
                                 <br />
                                 <hr />
                             </div>
+                            //edit n delete
                         )
                     })}
                     <NewComment {...props} postId={post._id}/>
