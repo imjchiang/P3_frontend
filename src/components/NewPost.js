@@ -65,36 +65,39 @@ const NewPostForm = (props) => {
                                             <label htmlFor="descriptionAndCode">Description or Code</label>
                                                 <textarea type="text" name="descriptionAndCode" value={descriptionAndCode} onChange={(e) => {setDescriptionAndCode([e.target.value])}} className="form-control" required/>
                                         </div>
+                                        <h5>Tags (choose 5 tags max)</h5>
+                                        {allTags.map((eachTag, idx) =>
                                         {
-                                        allTags.map((eachTag, idx) =>
-                                            {
-                                                return(
-                                                    <div key={idx} className="form-check form-check-inline">
-                                                        <input type="checkbox" name={"tag-" + eachTag.name} value={eachTag._id} onChange={(e) => {
-                                                            if(e.target.checked) {
-                                                                if (tags.length >= 5) {
-                                                                    alert("Max 5 tags!")
-                                                                    e.preventDefault()
-                                                                    return
-                                                                }
-                                                                let newTags = []
-                                                                newTags = newTags.concat(tags,[e.target.value] )
-                                                                console.log(newTags)
-                                                                setTags(newTags) 
-                                                            } else {
-                                                                let newTags = []
-                                                                newTags = tags.filter((t)=>{
-                                                                    return t !== e.target.value
-
-                                                                })
-                                                                setTags(newTags)
+                                            return(
+                                                <div key={idx} className="form-check form-check-inline">
+                                                    <input type="checkbox" name={"tag-" + eachTag.name} value={eachTag._id} onChange={(e) => {
+                                                        if(e.target.checked) 
+                                                        {
+                                                            if (tags.length >= 5) {
+                                                                alert("Max 5 tags!")
+                                                                e.preventDefault()
+                                                                return
                                                             }
-                                                                    }} />
-                                                        <label className="form-check-label" htmlFor={"tag-" + eachTag.name}>{eachTag.name}</label>
-                                                    </div>
-                                                )
-                                            })
-                                        }
+                                                            let newTags = []
+                                                            newTags = newTags.concat(tags,[e.target.value] )
+                                                            console.log(newTags)
+                                                            setTags(newTags) 
+                                                        } 
+                                                        else 
+                                                        {
+                                                            let newTags = []
+                                                            newTags = tags.filter((t)=>{
+                                                                return t !== e.target.value
+
+                                                            })
+                                                            setTags(newTags)
+                                                        }
+                                                                }} />
+                                                    <label className="form-check-label" htmlFor={"tag-" + eachTag.name}>{eachTag.name}</label>
+                                                </div>
+                                            )
+                                        })}
+
                                         <button type="submit" className="btn btn-primary">Submit</button>
                                     </form>
                                 </div>

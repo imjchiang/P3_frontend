@@ -6,9 +6,7 @@ import axios from 'axios';
 function Post(props) {
     let referencedPost = props.location.state;
     let [post, setPost] = useState();
-    let history = useHistory()
-
-    // let [descriptionsAndCode, setDescriptionsAndCode] = useState("") 
+    let history = useHistory();
 
     useEffect(() =>
     {
@@ -26,6 +24,23 @@ function Post(props) {
         state: post
     }
     
+    // const postComments = () =>
+    // {
+    //     post.comments.map((c, idx) =>
+    //     {
+    //         return(
+    //             <div key={idx}>
+    //                 {c.descriptionsAndCode}
+    //                 <br />
+    //                 {/* {c.author.name} */}
+    //                 <br />
+    //                 <hr />
+    //             </div>
+    //             //edit n delete
+    //         )
+    //     });
+    // }
+
     //delete post
     const deletePost = () => {
         axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost._id}`)
@@ -35,29 +50,6 @@ function Post(props) {
             history.push('/allPosts')
         });
     }
-
-    // let submitForm = (e) => 
-    // {
-    //     e.preventDefault()
-    //     // passing state variable works for key and value pair
-    //     let author = props.user.id
-
-    //     let newComment = { descriptionsAndCode, author }
-    //     console.log(newComment);
-    //     axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${post._id}/comments`, newComment)
-    //     .then(()=> {
-    //         setDescriptionsAndCode("")
-    //     })
-    //     .then(()=> {
-    //         return <Redirect to="/post" />
-    //     })
-    //     .catch(error => console.log(error))
-    // }
-
-    // function refreshPage() 
-    // {
-    //     window.location.reload(false);
-    // }
 
     return(
         <div>
@@ -72,8 +64,8 @@ function Post(props) {
                     })
                     }</p>
                     <p>Description: {post.descriptionAndCode}</p>
-                    <p>Author: {post.author.name}</p>
-                    {console.log(post.author.name)}
+                    <p>Author: {post.author.name ? post.author.name : "No Author Data Available"}</p>
+                    {/* {console.log(post.author.name)} */}
                     {/* <p>{post.upvote}</p> */}
                     {/* <p>{post.downvote}</p> */}
                     <p>Status: {post.solve ? "SOLVED" : "NOT SOLVED"}</p>
@@ -93,12 +85,13 @@ function Post(props) {
                     <hr />
                     <h5>Comments</h5>
                     <br />
-                    {post.comments.map((c, idx)=>{
+                    {post.comments.map((c, idx) =>
+                    {
                         return(
                             <div key={idx}>
                                 {c.descriptionsAndCode}
                                 <br />
-                                {c.author.name}
+                                {/* {c.author.name} */}
                                 <br />
                                 <hr />
                             </div>
@@ -106,18 +99,6 @@ function Post(props) {
                         )
                     })}
                     <NewComment {...props} postId={post._id}/>
-
-                    {/* <div>
-                        <form onSubmit={submitForm}>
-                            <div className="form-group col-md-6">
-                                <label htmlFor="descriptionsAndCode">Description or Code</label>
-                                    <textarea type="text" name="descriptionsAndCode" value={descriptionsAndCode} onChange={(e) => {setDescriptionsAndCode([e.target.value])}} className="form-control" required/>
-                            </div>
-                            <button onClick={refreshPage} type="submit" className="btn btn-primary">Submit</button>
-                        </form>
-                    </div> */}
-
-
                 </div>
             : 
                 <h3>Loading...</h3>
