@@ -21,10 +21,10 @@ function Post(props) {
     }, []);
 
     let location = 
-                {
-                    pathname: `/post/edit`,
-                    state: post
-                }
+    {
+        pathname: `/post/edit`,
+        state: post
+    }
     
     //delete post
     const deletePost = () => {
@@ -79,12 +79,16 @@ function Post(props) {
                     <p>Status: {post.solve ? "SOLVED" : "NOT SOLVED"}</p>
                     <p>Date: {post.date}</p>
 
-                    <div>
-                    <Link to={location} key={post._id}>
-                                    edit
-                    </Link>
-                    </div>
-                    <button onClick={deletePost}>delete</button>
+                    {/* post author has option to delete or edit post */}
+                    {props.user.id === post.author._id
+                    ?
+                        <div className="edit-and-delete">
+                            <Link to={location} key={post._id}>Edit</Link>
+                            <button onClick={deletePost}>Delete</button>
+                        </div>
+                    :
+                        <div className="edit-and-delete"></div>
+                    }
 
                     <hr />
                     <h5>Comments</h5>
