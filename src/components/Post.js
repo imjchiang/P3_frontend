@@ -39,7 +39,7 @@ function Post(props) {
                     <p>Status: {post.solve ? "SOLVED" : "NOT SOLVED"}</p>
                     <p>Date: {post.date}</p>
                     <p>{post.comments.map((c)=>{
-                        return <div>{c.descriptionAndCode}, {c.author.name}</div>
+                        return <div>{c.descriptionsAndCode}</div>
                     })}</p>
                     <NewComment {...props} postId={post._id}/>
                 </div>
