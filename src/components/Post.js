@@ -77,7 +77,12 @@ function Post(props) {
                             <div key={idx}>
                                 {c.descriptionsAndCode}
                                 <br />
-                                {/* {c.author.name} */}
+                                {c.author
+                                ?
+                                    c.author.name
+                                :
+                                    "No Author Data Available"
+                                }
                                 <br />
 
                                 {props.user && c.author && props.user.id === c.author._id
