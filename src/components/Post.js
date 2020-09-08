@@ -23,7 +23,7 @@ function Post(props) {
         <div>
             {post ? 
                 <div>
-                    <h5>We are looking at a specific post</h5>
+                    <h3>We are looking at a specific post</h3>
                     <p>Title: {post.title}</p>
                     <p>Tags: {post.tags.map((p)=>{
                         
@@ -38,8 +38,19 @@ function Post(props) {
                     {/* <p>{post.downvote}</p> */}
                     <p>Status: {post.solve ? "SOLVED" : "NOT SOLVED"}</p>
                     <p>Date: {post.date}</p>
+                    <hr />
+                    <h5>Comments</h5>
+                    <br />
                     <p>{post.comments.map((c)=>{
-                        return <div>{c.descriptionsAndCode}</div>
+                        return(
+                            <div>
+                                {c.descriptionsAndCode}
+                                <br />
+                                {c.author.name}
+                                <br />
+                                <hr />
+                            </div>
+                        )
                     })}</p>
                     <NewComment {...props} postId={post._id}/>
                 </div>
