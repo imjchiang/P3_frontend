@@ -21,17 +21,31 @@ const EditComment = (props) => {
         .catch(error => console.log(error))
     }
     
-    
+    const errorDiv = () =>
+    {
+        return(
+            <div className="text-center pt-4">
+                <h3>Please <Link to="/login">login</Link> to edit your post</h3>
+            </div>
+        );
+    };
 
     return (
         <div>
-            <form onSubmit={submitForm}>
-                <div className="form-group col-md-6">
-                    <label htmlFor="descriptionsAndCode">Description or Code</label>
-                        <textarea type="text" name="descriptionsAndCode" value={descriptionsAndCode} onChange={(e) => {setDescriptionsAndCode([e.target.value])}} className="form-control" required/>
-                </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
-            </form>
+            {props.user 
+            ?
+                <form onSubmit={submitForm}>
+                    <div className="form-group col-md-6">
+                        <label htmlFor="descriptionsAndCode">Description or Code</label>
+                            <textarea type="text" name="descriptionsAndCode" value={descriptionsAndCode} onChange={(e) => {setDescriptionsAndCode([e.target.value])}} className="form-control" required/>
+                    </div>
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                </form>
+            :
+                <>
+                    {errorDiv()}
+                </>
+            }
         </div>
     )
 }
