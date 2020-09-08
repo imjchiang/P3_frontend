@@ -23,23 +23,6 @@ function Post(props) {
         pathname: `/post/edit`,
         state: post
     }
-    
-    // const postComments = () =>
-    // {
-    //     post.comments.map((c, idx) =>
-    //     {
-    //         return(
-    //             <div key={idx}>
-    //                 {c.descriptionsAndCode}
-    //                 <br />
-    //                 {/* {c.author.name} */}
-    //                 <br />
-    //                 <hr />
-    //             </div>
-    //             //edit n delete
-    //         )
-    //     });
-    // }
 
     //delete post
     const deletePost = () => {
@@ -102,15 +85,19 @@ function Post(props) {
                                 <br />
                                 {/* {c.author.name} */}
                                 <br />
+
+                                {props.user && c.author && props.user.id === c.author._id
+                                ?
+                                    <div className="edit-and-delete-comment">
+                                        <Link to={location} key={post._id}>edit</Link>
+                                        <button onClick={deleteComment}>delete</button>
+                                    </div>
+                                :
+                                    <div className="edit-and-delete-comment"></div>
+                                }
+
                                 <hr />
                             </div>
-                            //edit n delete
-                            <div>
-                            <Link to={location} key={post._id}>
-                                            edit
-                            </Link>
-                            </div>
-                            <button onClick={deleteComment}>delete</button>
                         )
                     })}
                     <NewComment {...props} postId={post._id}/>
