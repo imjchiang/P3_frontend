@@ -74,7 +74,7 @@ const NewPostForm = (props) => {
                                                     } else {
                                                         let newTags = []
                                                         newTags = tags.filter((t)=>{
-                                                            return t != e.target.value
+                                                            return t !== e.target.value
 
                                                         })
                                                         setTags(newTags)
