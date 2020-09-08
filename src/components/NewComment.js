@@ -24,16 +24,19 @@ const NewComment = (props) => {
         .catch(error => console.log(error))
     }
     
+    function refreshPage() 
+    {
+        window.location.reload(false);
+    }
 
     return (
         <div>
             <form onSubmit={submitForm}>
-                    <div className="form-group col-md-6">
-                        <label htmlFor="descriptionsAndCode">Description or Code</label>
-                            <textarea type="text" name="descriptionsAndCode" value={descriptionsAndCode} onChange={(e) => {setDescriptionsAndCode([e.target.value])}} className="form-control" required/>
-                    </div>
-                    
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                <div className="form-group col-md-6">
+                    <label htmlFor="descriptionsAndCode">Description or Code</label>
+                        <textarea type="text" name="descriptionsAndCode" value={descriptionsAndCode} onChange={(e) => {setDescriptionsAndCode([e.target.value])}} className="form-control" required/>
+                </div>
+                <button onClick={refreshPage} type="submit" className="btn btn-primary">Submit</button>
             </form>
         </div>
     )

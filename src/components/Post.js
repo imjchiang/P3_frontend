@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import {Redirect} from 'react-router-dom'
 import NewComment from './NewComment'
 import axios from 'axios';
 
@@ -6,18 +7,40 @@ function Post(props) {
     let referencedPost = props.location.state;
     let [post, setPost] = useState();
 
+    // let [descriptionsAndCode, setDescriptionsAndCode] = useState("") 
+
     useEffect(() =>
     {
         axios.get(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost._id}`)
         .then(response =>
-            {
-        
+        {
             console.log(response.data);
             setPost(response.data);
         });
     }, []);
 
-   
+    // let submitForm = (e) => 
+    // {
+    //     e.preventDefault()
+    //     // passing state variable works for key and value pair
+    //     let author = props.user.id
+
+    //     let newComment = { descriptionsAndCode, author }
+    //     console.log(newComment);
+    //     axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${post._id}/comments`, newComment)
+    //     .then(()=> {
+    //         setDescriptionsAndCode("")
+    //     })
+    //     .then(()=> {
+    //         return <Redirect to="/post" />
+    //     })
+    //     .catch(error => console.log(error))
+    // }
+
+    // function refreshPage() 
+    // {
+    //     window.location.reload(false);
+    // }
 
     return(
         <div>
@@ -25,9 +48,9 @@ function Post(props) {
                 <div>
                     <h3>We are looking at a specific post</h3>
                     <p>Title: {post.title}</p>
-                    <p>Tags: {post.tags.map((p)=>{
+                    <p>Tags: {post.tags.map((p, idx)=>{
                         
-                        return <li>{p.name}</li>
+                        return <li key={idx}>{p.name}</li>
                         
                     })
                     }</p>
@@ -41,9 +64,9 @@ function Post(props) {
                     <hr />
                     <h5>Comments</h5>
                     <br />
-                    <p>{post.comments.map((c)=>{
+                    {post.comments.map((c, idx)=>{
                         return(
-                            <div>
+                            <div key={idx}>
                                 {c.descriptionsAndCode}
                                 <br />
                                 {c.author.name}
@@ -51,8 +74,20 @@ function Post(props) {
                                 <hr />
                             </div>
                         )
-                    })}</p>
+                    })}
                     <NewComment {...props} postId={post._id}/>
+
+                    {/* <div>
+                        <form onSubmit={submitForm}>
+                            <div className="form-group col-md-6">
+                                <label htmlFor="descriptionsAndCode">Description or Code</label>
+                                    <textarea type="text" name="descriptionsAndCode" value={descriptionsAndCode} onChange={(e) => {setDescriptionsAndCode([e.target.value])}} className="form-control" required/>
+                            </div>
+                            <button onClick={refreshPage} type="submit" className="btn btn-primary">Submit</button>
+                        </form>
+                    </div> */}
+
+
                 </div>
             : 
                 <h3>Loading...</h3>
