@@ -45,8 +45,8 @@ const EditPost = (props) => {
         let author = props.user.id;
         let newPost = { title, descriptionAndCode, tags, author }
         console.log(author);
-        //reset edit api
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/api/posts/`, newPost)
+        //passing edit/update api
+        axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost._id}`, newPost)
         .then(()=> {
             setTitle("")
             setTags([])

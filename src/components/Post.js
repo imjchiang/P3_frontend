@@ -50,6 +50,15 @@ function Post(props) {
             history.push('/allPosts')
         });
     }
+    //delete comment
+    const deleteComment = () => {
+        axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost._id}/comments`)
+        .then(response =>
+        {
+            console.log(response.data);
+            history.push('/allPosts')
+        });
+    }
 
     return(
         <div>
@@ -96,6 +105,12 @@ function Post(props) {
                                 <hr />
                             </div>
                             //edit n delete
+                            <div>
+                            <Link to={location} key={post._id}>
+                                            edit
+                            </Link>
+                            </div>
+                            <button onClick={deleteComment}>delete</button>
                         )
                     })}
                     <NewComment {...props} postId={post._id}/>
