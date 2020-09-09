@@ -114,7 +114,8 @@ const Profile = (props) =>
                                                     {console.log(post.title)}
                                                 </Link>
                                                 <br />
-                                                {post.author.name}
+                                                {console.log(post.author)}
+                                                {/* {post.author ? post.author.name : "NO AUTHOR DATA FOUND"} */}
                                                 {console.log(post.author.name)}
                                                 <br />
                                                 {post.descriptionAndCode}

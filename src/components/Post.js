@@ -61,7 +61,7 @@ function Post(props) {
                     {/* <p>{post.downvote}</p> */}
 
                     <p>Status: {post.solved ? "SOLVED" : "NOT SOLVED"}</p>
-                    {props.user && props.user.id === post.author._id
+                    {props.user && post.author && props.user.id === post.author._id
                     ?
                         <SolveToggle {...props} post={post}/>
                     :
@@ -88,6 +88,20 @@ function Post(props) {
                     {
                         return(
                             <div key={idx}>
+                                {/* //author verification */}
+                                {props.user && post.author && props.user.id === post.author._id
+                                ?
+                                    console.log("YOU ARE THE POST AUTHOR")
+                                    //parse through all comments to check if at least one has been marked as the solution
+                                        //if yes, can only mark "starredOnPost" as false
+                                            //refresh page
+                                        //if no, can only mark "starredOnPost" as true
+                                            //refresh page
+                                :
+                                    console.log("NOT THE POST AUTHOR")
+                                }
+
+
                                 {c.descriptionsAndCode}
                                 {console.log(c._id)}
                                 <br />
@@ -118,6 +132,15 @@ function Post(props) {
             : 
                 <h3>Loading...</h3>
             }
+            <p>YEET</p>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
         </div>
     )
 }
