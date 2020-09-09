@@ -9,14 +9,11 @@ const EditComment = (props) => {
 
     let referencedComment = props.location.state;
 
-    console.log(referencedComment)
-    console.log(props.location)
-
     let submitForm = (e) => {
         e.preventDefault()
         // passing state variable works for key and value pair
         let author = props.user.id
-        let editComment = { descriptionsAndCode, author }
+        let editComment = { descriptionsAndCode, author, referencedComment }
         console.log(editComment);
         axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${props.postId}/comments/edit`, editComment)
         .then(()=> {
