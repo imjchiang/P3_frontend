@@ -25,7 +25,8 @@ function Post(props) {
     }
 
     //delete post
-    const deletePost = () => {
+    const deletePost = () => 
+    {
         axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost._id}`)
         .then(response =>
         {
@@ -35,12 +36,15 @@ function Post(props) {
     }
 
     //delete comment
-    const deleteComment = () => {
-        axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost._id}/comments/delete`)
+    const deleteComment = (id) => 
+    {
+        let deletedComment = { id }
+        axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost._id}/comments/delete`, deletedComment)
         .then(response =>
         {
             console.log(response.data);
-            history.push('/allPosts')
+            window.location.reload(false);
+            // history.push('/allPosts')
         });
     }
 
@@ -90,7 +94,7 @@ function Post(props) {
                                 ?
                                     <div className="edit-and-delete-comment">
                                         <Link to={{pathname: `/comment/edit`, state: c._id, postId: post._id}} key={post._id}>edit</Link>
-                                        <button onClick={deleteComment()}>delete</button>
+                                        <button onClick={() => deleteComment(c._id)}>delete</button>
                                     </div>
                                 :
                                     <div className="edit-and-delete-comment"></div>
