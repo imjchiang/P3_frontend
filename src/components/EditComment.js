@@ -8,14 +8,15 @@ const EditComment = (props) => {
     let history = useHistory()
 
     let referencedComment = props.location.state;
+    let referencedPost = props.location.postId;
 
     let submitForm = (e) => {
         e.preventDefault()
         // passing state variable works for key and value pair
         let author = props.user.id
-        let editComment = { descriptionsAndCode, author, referencedComment }
+        let editComment = { descriptionsAndCode, author, referencedComment}
         console.log(editComment);
-        axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${props.postId}/comments/edit`, editComment)
+        axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost}/comments/edit`, editComment)
         .then(()=> {
             setDescriptionsAndCode("")
             history.goBack()

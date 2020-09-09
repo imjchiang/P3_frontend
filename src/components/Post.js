@@ -2,14 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import NewComment from './NewComment'
 import axios from 'axios';
-import EditComment from './EditComment';
 
 function Post(props) {
     let referencedPost = props.location.state;
     let [post, setPost] = useState();
-    let [comment, setComment] = useState();
     let history = useHistory();
-    // let comment;
 
     useEffect(() =>
     {
@@ -36,6 +33,7 @@ function Post(props) {
             history.push('/allPosts')
         });
     }
+
     //delete comment
     const deleteComment = () => {
         axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost._id}/comments/delete`)
@@ -54,7 +52,6 @@ function Post(props) {
                     <p>Tags: {post.tags.map((p, idx) => {return <li key={idx}>{p.name}</li>})}</p>
                     <p>Description: {post.descriptionAndCode}</p>
                     <p>Author: {post.author && post.author.name ? post.author.name : "No Author Data Available"}</p>
-                    {/* {console.log(post.author.name)} */}
                     {/* <p>{post.upvote}</p> */}
                     {/* <p>{post.downvote}</p> */}
                     <p>Status: {post.solve ? "SOLVED" : "NOT SOLVED"}</p>
@@ -92,8 +89,8 @@ function Post(props) {
                                 {props.user && c.author && props.user.id === c.author._id
                                 ?
                                     <div className="edit-and-delete-comment">
-                                        <Link to={{pathname: `/comment/edit`,state: c._id}} key={post._id}>edit</Link>
-                                        <button onClick={deleteComment}>delete</button>
+                                        <Link to={{pathname: `/comment/edit`, state: c._id, postId: post._id}} key={post._id}>edit</Link>
+                                        <button onClick={deleteComment()}>delete</button>
                                     </div>
                                 :
                                     <div className="edit-and-delete-comment"></div>
@@ -112,4 +109,4 @@ function Post(props) {
     )
 }
 
-export default Post
+export default Post;
