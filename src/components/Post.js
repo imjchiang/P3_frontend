@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import NewComment from './NewComment'
 import axios from 'axios';
+import SolveToggle from './SolveToggle';
 
 function Post(props) {
     let referencedPost = props.location.state;
@@ -58,7 +59,8 @@ function Post(props) {
                     <p>Author: {post.author && post.author.name ? post.author.name : "No Author Data Available"}</p>
                     {/* <p>{post.upvote}</p> */}
                     {/* <p>{post.downvote}</p> */}
-                    <p>Status: {post.solve ? "SOLVED" : "NOT SOLVED"}</p>
+                    <p>Status: {post.solved ? "SOLVED" : "NOT SOLVED"}</p>
+                    <SolveToggle {...props}/>
                     <p>Date: {post.date}</p>
 
                     {/* post author has option to delete or edit post */}
