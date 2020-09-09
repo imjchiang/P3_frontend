@@ -59,8 +59,15 @@ function Post(props) {
                     <p>Author: {post.author && post.author.name ? post.author.name : "No Author Data Available"}</p>
                     {/* <p>{post.upvote}</p> */}
                     {/* <p>{post.downvote}</p> */}
+
                     <p>Status: {post.solved ? "SOLVED" : "NOT SOLVED"}</p>
-                    <SolveToggle {...props}/>
+                    {props.user && props.user.id === post.author._id
+                    ?
+                        <SolveToggle {...props} post={post}/>
+                    :
+                        console.log("INVALID USER")
+                    }
+                    
                     <p>Date: {post.date}</p>
 
                     {/* post author has option to delete or edit post */}
