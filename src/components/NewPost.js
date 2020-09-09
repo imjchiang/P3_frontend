@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react' ;
 import axios from 'axios';
+// import loadingGif from './spinner.gif';
 import { Link, useHistory } from 'react-router-dom';
+
+const url = 'https://api.cloudinary.com/v1_1/dc8ufznd0'
+const preset = 'ml_default'
 
 const NewPostForm = (props) => {
     let [title, setTitle]= useState("")
     let [tags, setTags] = useState([])
-    let [descriptionAndCode, setDescriptionAndCode] = useState([""])
+    let [descriptionAndCode, setDescriptionAndCode] = useState("")
+    let [imageUrl, setImageUrl] = useState("")
+    let [image, setImage] = useState('');
     let [allTags, setAllTags] = useState("");
     let history = useHistory()
 
@@ -28,23 +34,68 @@ const NewPostForm = (props) => {
         );
     };
 
+    const onChange = e => {
+      setImage(e.target.files[0]);
+    };
+
+    // const onSubmit = async () => {
+    //     const formData = new FormData();
+    //     formData.append('file', image);
+    //     formData.append('upload_preset', preset);
+    //     try {
+    //     //   setLoading(true);
+    //       const res = await axios.post(url, formData);
+    //       setImageUrl = res.data.secure_url;
+    //       const image = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/`, {
+    //         imageUrl
+    //       });
+    //     //   setLoading(false);
+    //       setImage(image.data);
+    //     } catch (err) {
+    //       console.error(err);
+    //     }
+    //   };
+
     let submitForm = (e) => {
         e.preventDefault()
         // passing state variable works for key and value pair
         console.log(tags);
         let author = props.user.id;
-        let newPost = { title, descriptionAndCode, tags, author }
+        let newPost = { title, descriptionAndCode, tags, author, imageUrl }
         console.log(author);
         axios.post(`${process.env.REACT_APP_SERVER_URL}/api/posts/`, newPost)
+
         .then(()=> {
             setTitle("")
-            setTags([])
-            setDescriptionAndCode([""])
+            setTags()
+            setDescriptionAndCode("")
+            setImageUrl();
             // setAuthor(props.user.id);
            history.push("/allPosts")
         })
+
         .catch(error => console.log(error))
+
+        const formData = new FormData();
+        formData.append('file', image);
+        formData.append('upload_preset', preset);
+        
+        //   setLoading(true);
+          axios.post(url, formData)
+          .then((req,res )=> {
+          setImageUrl = res.data.secure_url;
+
+        //   setLoading(false);
+          setImage(image.data);
+        }) .catch ((err) => {
+          console.error(err);
+        })
+
+
+
     }
+
+
 
     return (
         <>
@@ -65,6 +116,16 @@ const NewPostForm = (props) => {
                                             <label htmlFor="descriptionAndCode">Description or Code</label>
                                                 <textarea type="text" name="descriptionAndCode" value={descriptionAndCode} onChange={(e) => {setDescriptionAndCode([e.target.value])}} className="form-control" required/>
                                         </div>
+                                        <div className="form-group col-md-6">
+                                            <label htmlFor="image">Code Image</label>
+                                                <input type="file" name="image" onChange={(e) => {setImage=([e.target.files])}} className="form-control" />
+                                                <input type= "submit" ></input>
+                                        </div>
+                                        {/* <div className='center'>
+                                            {/* <button onClick={onSubmit} className='btn center'>
+                                            upload
+                                            </button> */}
+                                
                                         <h5>Tags (choose 5 tags max)</h5>
                                         {allTags.map((eachTag, idx) =>
                                         {
