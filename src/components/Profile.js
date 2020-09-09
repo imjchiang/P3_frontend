@@ -6,7 +6,18 @@ const Profile = (props) =>
 {
     // console.log(props);
     const [posts, setPosts] = useState([]);
+    let specificPosts = [];
     
+    useEffect(() => 
+    {
+        axios.get(`${process.env.REACT_APP_SERVER_URL}/api/posts/`)
+        .then(response => 
+        {
+            // console.log(response.data);
+            setPosts(response.data);
+        });
+    }, []);
+
     let totalPosts = 0;
     posts.map((post, idx) => 
     {
@@ -16,15 +27,22 @@ const Profile = (props) =>
         }
     });
 
-    useEffect(() => 
+    let totalComments = 0;
+    posts.map((post, idx) => 
     {
-        axios.get(`${process.env.REACT_APP_SERVER_URL}/api/posts/`)
-        .then(response => 
+        if (post.comments)
         {
-            console.log(response.data);
-            setPosts(response.data);
-        });
-    }, []);
+            for (let i = 0; i < post.comments.length; i++)
+            {
+                if (post.comments[i].author && post.comments[i].author._id === props.user.id)
+                {
+                    totalComments++;
+                    console.log(post);
+                    specificPosts.push(post._id);
+                }
+            }
+        }
+    });
 
     const errorDiv = () =>
     {
@@ -46,7 +64,7 @@ const Profile = (props) =>
                     <h3>Info</h3>
                     <p><strong>Email:</strong> {props.user.email}</p>
                     <p><strong>Number of Posts:</strong> {totalPosts}</p>
-                    <p><strong>Number of Posts Commented On:</strong> 346554265</p>
+                    <p><strong>Number of Posts Commented On:</strong> {totalComments}</p>
                     <hr />
 
                     <h3>{props.user.name}'s Posts</h3>
@@ -55,9 +73,6 @@ const Profile = (props) =>
                         {
                             if (post.author && post.author._id === props.user.id)
                             {
-                                totalPosts++;
-                                console.log(totalPosts);
-
                                 let location = 
                                 {
                                     pathname: `/post`,
@@ -68,8 +83,6 @@ const Profile = (props) =>
                                         <Link to={location} key={post._id}>
                                             {post.title}
                                         </Link>
-                                        <br/>
-                                        {console.log(post.author)}
                                         <br/>
                                         {post.descriptionAndCode}
                                         <br/>
@@ -81,35 +94,42 @@ const Profile = (props) =>
                     </div>
                     <h3>Posts {props.user.name} Commented On</h3>
                     <div>
-                        {posts.map((post, idx) => 
+                        {specificPosts.map((sp, idx) => 
                         {
-                            if (post.author && post.author._id === props.user.id)
-                            {
-                                totalPosts++;
-                                console.log(totalPosts);
-
-                                let location = 
+                            return(
+                                posts.map((post, idx) =>
                                 {
-                                    pathname: `/post`,
-                                    state: post
-                                }
-                                return (
-                                    <div key={idx}>
-                                        <Link to={location} key={post._id}>
-                                            {post.title}
-                                        </Link>
-                                        <br/>
-                                        {console.log(post.author)}
-                                        <br/>
-                                        {post.descriptionAndCode}
-                                        <br/>
-                                        <hr />
-                                    </div>
-                                )
-                            }
+                                    if (post._id === sp)
+                                    {
+                                        let location = 
+                                        {
+                                            pathname: `/post`,
+                                            state: post
+                                        }
+                                        return(
+                                            <div key={idx}>
+                                                {console.log(post)}
+                                                <Link to={location} key={post._id}>
+                                                    {post.title}
+                                                    {console.log(post.title)}
+                                                </Link>
+                                                <br />
+                                                {post.author.name}
+                                                {console.log(post.author.name)}
+                                                <br />
+                                                {post.descriptionAndCode}
+                                                {console.log(post.descriptionAndCode)}
+                                                <br />
+                                                <hr />
+                                                {console.log("INSIDE")}
+                                            </div>
+                                        )
+                                    }
+                                })
+                            )
                         })}
                     </div>
-                    {/* <p>YEET</p>
+                    <p>YEET</p>
                     <br />
                     <br />
                     <br />
@@ -117,7 +137,7 @@ const Profile = (props) =>
                     <br />
                     <br />
                     <br />
-                    <br /> */}
+                    <br />
                 </>
             : 
                 errorDiv()
