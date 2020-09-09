@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import {useHistory} from 'react-router-dom'
+import {useHistory, Link} from 'react-router-dom'
 
 
 const EditComment = (props) => {
     let [descriptionsAndCode, setDescriptionsAndCode] = useState("") 
     let history = useHistory()
+
+    let referencedComment = props.location.state;
+
+    console.log(referencedComment)
+    console.log(props.location)
 
     let submitForm = (e) => {
         e.preventDefault()

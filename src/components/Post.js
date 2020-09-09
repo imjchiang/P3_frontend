@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import NewComment from './NewComment'
 import axios from 'axios';
+import EditComment from './EditComment';
 
 function Post(props) {
     let referencedPost = props.location.state;
     let [post, setPost] = useState();
+    let [comment, setComment] = useState();
     let history = useHistory();
+    // let comment;
 
     useEffect(() =>
     {
@@ -76,6 +79,7 @@ function Post(props) {
                         return(
                             <div key={idx}>
                                 {c.descriptionsAndCode}
+                                {console.log(c._id)}
                                 <br />
                                 {c.author
                                 ?
@@ -88,7 +92,7 @@ function Post(props) {
                                 {props.user && c.author && props.user.id === c.author._id
                                 ?
                                     <div className="edit-and-delete-comment">
-                                        <Link to={location} key={post._id}>edit</Link>
+                                        <Link to={{pathname: `/comment/edit`,state: c._id}} key={post._id}>edit</Link>
                                         <button onClick={deleteComment}>delete</button>
                                     </div>
                                 :

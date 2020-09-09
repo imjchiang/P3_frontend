@@ -79,6 +79,36 @@ const Profile = (props) =>
                             }
                         })}
                     </div>
+                    <h3>Posts {props.user.name} Commented On</h3>
+                    <div>
+                        {posts.map((post, idx) => 
+                        {
+                            if (post.author && post.author._id === props.user.id)
+                            {
+                                totalPosts++;
+                                console.log(totalPosts);
+
+                                let location = 
+                                {
+                                    pathname: `/post`,
+                                    state: post
+                                }
+                                return (
+                                    <div key={idx}>
+                                        <Link to={location} key={post._id}>
+                                            {post.title}
+                                        </Link>
+                                        <br/>
+                                        {console.log(post.author)}
+                                        <br/>
+                                        {post.descriptionAndCode}
+                                        <br/>
+                                        <hr />
+                                    </div>
+                                )
+                            }
+                        })}
+                    </div>
                     {/* <p>YEET</p>
                     <br />
                     <br />

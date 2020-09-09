@@ -13,6 +13,7 @@ import NewPost from './components/NewPost';
 import AllPosts from './components/AllPosts';
 import Footer from './components/Footer';
 import EditPost from './components/EditPost'
+import EditComment from './components/EditComment'
 
 import './App.css';
 
@@ -93,6 +94,10 @@ function App()
           <Route
             path="/post/edit"
             render={(props)=> <EditPost {...props} user={currentUser} />}>
+          </Route>
+          <Route
+            path="/comment/edit"
+            render={(props)=> <EditComment {...props} user={currentUser} />}>
           </Route>
           <PrivateRoute path="/profile" component={Profile} user={currentUser} />
           <Route exact path="/" component={Home} />
