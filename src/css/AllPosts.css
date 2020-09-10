@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;1,300&family=Varela&display=swap');
+
+h2
+{
+    text-align: center;
+    margin-bottom: 2vw;
+    font-size: 3vw;
+    font-family: "Varela", sans-serif;
+}
+
+.allposts-options
+{
+    display: flex;
+}
+
+.options
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: fit-content;
+    margin-right: 1.5vw;
+    padding: 0.3vw 0.5vw 0.3vw 0.5vw;
+    border: 2px solid #7e7e7e;
+    color: #7e7e7e;
+    background-color: white;
+    letter-spacing: 0.1vw;
+    overflow: hidden;
+    font-size: 0.8vw;
+}
+
+.options:hover
+{
+    color: #2D3142;
+    background-color: #d4d4d4;
+    text-decoration: none;
+}
+
+.allposts-filter
+{
+    margin: 0;
+    font-size: 1.3vw;
+    font-family: "Varela", sans-serif;
+}
+
+.allposts-title
+{
+    font-size: 1.4vw;
+    color: #555169;
+    font-family: "Varela", sans-serif;
+}
+
+.allposts-title:hover
+{
+    color: #53cab0;
+    text-decoration: none;
+}
+
+.allposts-desc
+{
+    margin-top: 0.2vw;
+    font-size: 0.85vw;
+    font-family: "Montserrat", sans-serif;
+    color: #797979;
+    margin-bottom: 0.5vw;
+    letter-spacing: 0.03vw;
+}
+
+.allposts-author
+{
+    font-size: 0.85vw;
+    font-family: "Varela", sans-serif;
+}
