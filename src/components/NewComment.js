@@ -43,7 +43,7 @@ const NewComment = (props) => {
         {
             let author = props.user.id
 
-            let newComment = { descriptionsAndCode, author}
+            let newComment = { descriptionsAndCode, author, imgUrl}
             console.log(newComment);
             axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${props.postId}/comments`, newComment)
             .then(()=> {

@@ -91,6 +91,7 @@ function Post(props) {
                         return(
                             <div key={idx}>
                                 {c.descriptionsAndCode}
+                                {console.log(c.imgUrl)}
                                 {c.imgUrl ? <p>Code: <img src={c.imgUrl}/></p> : <></>}
                                 {console.log(c._id)}
                                 <br />

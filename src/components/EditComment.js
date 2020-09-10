@@ -45,7 +45,8 @@ const EditComment = (props) => {
         if (!loading)
         {
             let author = props.user.id
-            let editComment = { descriptionsAndCode, author, referencedComment}
+            console.log(imgUrl);
+            let editComment = { descriptionsAndCode, author, referencedComment, imgUrl}
             console.log(editComment);
             axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost}/comments/edit`, editComment)
             .then(()=> {
