@@ -89,7 +89,6 @@ function Post(props) {
                     {
                         return(
                             <div key={idx}>
-                                <Solution {...props} post={post} user={props.user} comment={c}/>
                                 {c.descriptionsAndCode}
                                 {console.log(c._id)}
                                 <br />
@@ -100,6 +99,8 @@ function Post(props) {
                                     "No Author Data Available"
                                 }
                                 <br />
+                                <Solution {...props} post={post} user={props.user} comment={c}/>
+                                
 
                                 {props.user && c.author && props.user.id === c.author._id
                                 ?
