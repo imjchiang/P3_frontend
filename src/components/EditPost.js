@@ -8,9 +8,9 @@ const EditPost = (props) => {
     let [tags, setTags] = useState([])
     let [descriptionAndCode, setDescriptionAndCode] = useState([""])
     let [allTags, setAllTags] = useState("");
-    
+    let [imgUrl, setImgUrl] = useState("")
+    let [loading, setLoading] = useState(false)
     let history = useHistory()
-
     let referencedPost = props.location.state;
 
     useEffect(() =>
@@ -31,7 +31,8 @@ const EditPost = (props) => {
             console.log(response.data);
             setTitle(response.data.title);
             setTags(response.data.tags);
-            setDescriptionAndCode(response.data.descriptionAndCode);
+            setDescriptionAndCode(response.data.descriptionAndCode)
+            setImgUrl(response.data.imgUrl);
             
         });
     }, []);
@@ -45,19 +46,41 @@ const EditPost = (props) => {
         );
     };
 
+    let uploadImage = async e => {
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append('upload_preset', 'scft486b')
+        if(data){
+        const res = await fetch(
+            `https://api.cloudinary.com/v1_1/dc8ufznd0/image/upload`,
+            {
+                method: 'POST',
+                body: data
+            }
+        )
+        const file = await res.json() 
+        setImgUrl(file.secure_url)
+        setLoading(false)
+        console.log(file.secure_url)
+        }   
+    }
+
+
     let submitForm = (e) => {
         e.preventDefault()
         // passing state variable works for key and value pair
         console.log(tags);
         let author = props.user.id;
-        let newPost = { title, descriptionAndCode, tags, author }
+        let newPost = { title, descriptionAndCode, tags, author, imgUrl}
         console.log(author);
         //passing edit/update api
         axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost._id}`, newPost)
         .then(()=> {
             setTitle("")
             setTags([])
-            setDescriptionAndCode([""])
+            setDescriptionAndCode("")
+            setImgUrl("")
             // reset back
            history.goBack()
         })
@@ -83,6 +106,10 @@ const EditPost = (props) => {
                                             <label htmlFor="descriptionAndCode">Description or Code</label>
                                                 <textarea type="text" name="descriptionAndCode" value={descriptionAndCode} onChange={(e) => {setDescriptionAndCode([e.target.value])}} className="form-control" required/>
                                         </div>
+                                        <div className="form-group col-md-6">
+                                            <label htmlFor="image">Code Image</label>
+                                                <input type="file" name="image" onChange={uploadImage} className="form-control"/>
+                                        </div>   
                                         {
                                         allTags.map((eachTag, idx) =>
                                             {

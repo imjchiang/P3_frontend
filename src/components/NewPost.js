@@ -24,6 +24,16 @@ const NewPostForm = (props) => {
         });
     }, []);
     
+ 
+    const errorDiv = () =>
+    {
+        return(
+            <div className="text-center pt-4">
+                <h3>Please <Link to="/login">login</Link> to create a new post</h3>
+            </div>
+        );
+    };
+
     let uploadImage = async e => {
         const files = e.target.files
         const data = new FormData()
@@ -40,16 +50,7 @@ const NewPostForm = (props) => {
         setImgUrl(file.secure_url)
         setLoading(false)
         console.log(file.secure_url)       
-        }
-
-    const errorDiv = () =>
-    {
-        return(
-            <div className="text-center pt-4">
-                <h3>Please <Link to="/login">login</Link> to create a new post</h3>
-            </div>
-        );
-    };
+    }
 
     let submitForm = (e) => {
         e.preventDefault()
@@ -94,7 +95,7 @@ const NewPostForm = (props) => {
                                         </div>
                                         <div className="form-group col-md-6">
                                             <label htmlFor="image">Code Image</label>
-                                                <input type="file" name="image" onChange={uploadImage} className="form-control"/>
+                                                <input type="file" name="image" onChange={uploadImage} className="form-control" multiple/>
                                         </div>                                
                                         <h5>Tags (choose 5 tags max)</h5>
                                         {allTags.map((eachTag, idx) =>
