@@ -4,8 +4,6 @@ import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
 
 
-const url = 'https://api.cloudinary.com/v1_1/dc8ufznd0/'
-const preset = 'wctvloqy'
 
 const NewPostForm = (props) => {
     let [title, setTitle]= useState("")
@@ -25,8 +23,8 @@ const NewPostForm = (props) => {
             setAllTags(response.data);
         });
     }, []);
-
-    const uploadImage = async e => {
+    
+    let uploadImage = async e => {
         const files = e.target.files
         const data = new FormData()
         data.append('file', files[0])
@@ -38,12 +36,10 @@ const NewPostForm = (props) => {
                 body: data
             }
         )
-        const file = await res.json()
- 
+        const file = await res.json() 
         setImgUrl(file.secure_url)
         setLoading(false)
-        console.log(file.secure_url)
-       
+        console.log(file.secure_url)       
         }
 
     const errorDiv = () =>
@@ -55,12 +51,6 @@ const NewPostForm = (props) => {
         );
     };
 
-    // const onChange = e => {
-    //   setImage(e.target.files[0])
-    //   console.log("image"+image)
-    // };
-
-
     let submitForm = (e) => {
         e.preventDefault()
         // passing state variable works for key and value pair
@@ -70,26 +60,18 @@ const NewPostForm = (props) => {
         console.log(author);
         console.log(newPost)
 
-            axios.post(`${process.env.REACT_APP_SERVER_URL}/api/posts/`, newPost)
-
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/api/posts/`, newPost)
         .then(()=> {
             setTitle("")
             setTags()
             setDescriptionAndCode("")
             setImgUrl("")
-            
-            
+                     
             // setAuthor(props.user.id);
            history.push("/allPosts")
         })
         .catch(error => console.log(error))
-
-
         }
-
-
-
-
 
     return (
         <>

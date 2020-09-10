@@ -62,7 +62,7 @@ function Post(props) {
                     <p>Status: {post.solved ? "SOLVED" : "NOT SOLVED"}</p>
                     <SolveToggle {...props}/>
                     <p>Date: {post.date}</p>
-                    <p>image: {post.imgUrl}</p>
+                    <p>Code: <img src={post.imgUrl}/></p>
 
                     {/* post author has option to delete or edit post */}
                     {props.user && post.author && props.user.id === post.author._id
