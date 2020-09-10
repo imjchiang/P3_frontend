@@ -1,71 +1,222 @@
-# This is the exitcodeZERO frontend
-# Test 2
+# exitcodeZERO -frontend
+## Introduction
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is an app to explore the theory behind coding, to ask questions on coding, debugging, and to help others in the community of coders that collectively ask, learn, and help.
 
-## Available Scripts
+## Teachnologies Used
+- MERN (MongoDB, ExpressJS, ReactJS, NodeJS) & CSS
+- passport, passport-local
+- dotenv: hold session secret and api keys
+- axios: communicate with server
+- cloudinary: to save images
 
-In the project directory, you can run:
+## User Stories
+### Users are able to login and post issues they are having with their code
+- Title: purpose of the code / error or issue they are having
+- Solved Tag: Indicates next to title whether the issue has been solved or not
+  - Clicking on this tag links to the solution the author of the question used
+- Tags: tags help label and categorize the issue
+- Description: describe the issue, things attempted, tried solutions, where you think potential issues are, constraints
+- Image (optional): can post image of debugging screen, code, desired product, etc...
 
-### `npm start`
+## Wireframes
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![Home](/public/wireframes/HomePage.jpeg)
+![AllPosts](/public/wireframes/AllPosts.jpeg)
+![Post](/public/wireframes/SpecificPost.jpeg)
+![EditPost](/public/wireframes/EditPost.jpeg)
+![Profile](/public/wireframes/Profile.jpeg)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `Installation Instructions`
+1. Fork and clone the repository.
+2. Install all the node packages (npm i).
+3. add a .env file with REACT_APP_SERVER_URL="http://localhost:8000" which connected to server.
+4. Run the app with npm start.
+4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+5. The page will reload if you make edits.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Rundown Progress
+- 05.09.2020 Set up gitrepo master and branches by Josh
+  - complete main auth by Josh
+  - component's frame create (Home, AllPost, Post, Profile) by Josh and Irene
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- 06.09.2020 AllPosts, Post, NewPost implemented by team
+  - add comment form, tag checkboxes and posts rendering to browser by Irene
+  - axios successfully calls to specific post, user and tag by Josh
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- 07.09.2020 Embedded comments stuff implemented by team
+  - tags features solved at NewPost.js and add map method to call out all comments to post page by Irene
+  - fix comments api call which typo issue by Alice
+  - touch up syntax error, refresh/reload page, implement author name rendering by Josh
 
-### `npm run eject`
+- 08.09.2020 Edit/Delete function implemented by team
+  - auth permission to edit/delete specific post/comment by Josh
+  - pass the put route api to EditPost.js and created new component for editing comment by Irene
+  - check users verification by Josh
+  - fix comments(embedded) bugs by Josh
+  - add filter tags function and rendering out on AllPosts.js by Irene
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- 09.09.2020 SolvedToggle and PickedSolution implemented by team
+  - add SolvedToggle component by Irene
+  - implement and solve SolveToggle issue by Josh
+  - add Solution component by Josh
+  - implement and solve Solution button by Josh
+  - add image function by using cloundinary by Alice
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 10.09.2020 Cloudinary and Image stuffs solved by team
+  - touch up and fix bugs (images matter) by Josh
+  - Readme.md update by Irene
+  - CSS styling by Josh
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- 11.09.2020 Finalized and Presentation!
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Four Major hurdles we had to overcome
 
-## Learn More
+- Tags in NewPost.js: 
+  Able to map all tags but hardness parts are limited tags checked and undo the previous checked box in NewPost.js. Finally got a solution as below: 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```javascript
+if(e.target.checked) 
+     {
+        if (tags.length >= 5) {
+            alert("Max 5 tags!")
+            e.preventDefault()
+            return
+        }
+            let newTags = []
+            newTags = newTags.concat(tags,[e.target.value] )
+            console.log(newTags)
+            setTags(newTags) 
+} 
+    else 
+    {
+        let newTags = []
+        newTags = tags.filter((t)=>{
+        return t !== e.target.value
+    })
+       setTags(newTags)
+    }
+}}
+<label className="form-check-label" htmlFor={"tag-" + eachTag.name}>{eachTag.name}</label>                   
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- For filtering tags part in AllPosts.js: 
+  we added a solution in backend-server and a function in component AllPosts.js for rendering. So we finally get all those checkboxes which tick by user for specific tag's posts they want.
+```javascript
+ <button onClick={()=>{
+                let filter = tags.join(',')
+                let url = `${process.env.REACT_APP_SERVER_URL}/api/posts/?filter=${filter}`
+                console.log(url)
+                axios.get(`${process.env.REACT_APP_SERVER_URL}/api/posts/?filter=${filter}`)
+                .then(response => 
+                {
+                    console.log(response.data);
+                    setPosts(response.data);
+                });
+            }} type="submit" className="btn btn-primary">Submit</button>
+```
 
-### Code Splitting
+- SolvedToggle and SolutionPicked by post author:
+  we took times to figure out a solved toggle checked (post) and starredOnPost (comment) which ticking by the post's author. We solved boolean matter in the SolveToggle.js and solved an api call by adding specific post's id & comment's id since comments is embeded in Schema.
+  - SolveToggle.js
+```javascript
+if (solved)
+        {
+            axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${props.post._id}`, {solved: false})
+            .then(()=> {
+                window.location.reload(false);
+            })
+            .catch(error => console.log(error))
+        }
+        else
+        {
+            axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${props.post._id}`, {solved: true})
+            .then(()=> {
+                window.location.reload(false);
+            })
+            .catch(error => console.log(error));
+        }
+```
+  - Solution.js
+```javascript
+if (props.user && post.author && props.user.id === post.author._id)
+    {
+        if (pickedSolution)
+        {
+            if (props.comment.starredOnPost)
+            {
+                return (
+                    <button 
+                        onClick={() => 
+                        {
+                            axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${post._id}/comments/editStatus`, {starredOnPost: false, comment: props.comment._id})
+                            .then(()=> 
+                            {
+                                console.log(props.comment.starredOnPost);
+                                window.location.reload(false);
+                            })
+                            .catch(error => console.log(error))
+                        }}>
+                        Remove Solution
+                    </button>
+                )
+            }
+            //if yes, can only mark "starredOnPost" as false
+                //refresh page
+        }
+        else
+        {
+            return (
+                <button 
+                    onClick={() =>
+                    {
+                        axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${post._id}/comments/editStatus`, {starredOnPost: true, comment: props.comment._id})
+                        .then(()=> 
+                        {
+                            window.location.reload(false);
+                        })
+                        .catch(error => console.log(error))
+                    }}>
+                    Set as Solution
+                </button>
+            )
+            
+        }
+    }
+```
+- Upload images by using Cloudinary: we had an issue of asynchrone between browser and server when user uploading an image. Finally Gitmaster Mr. JOSHUA came out the below solution and it's working nicely! 
+```javascript
+let uploadImage = async e => 
+    {
+        setLoading(true);
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append('upload_preset', 'scft486b')
+        if (data)
+        {
+            const res = await fetch(
+                `https://api.cloudinary.com/v1_1/dc8ufznd0/image/upload`,
+                {
+                    method: 'POST',
+                    body: data
+                }
+            )
+            const file = await res.json() 
+            setImgUrl(file.secure_url)
+            setLoading(false)
+            console.log(file.secure_url)
+        }
+        else
+        {
+            setLoading(false);
+        }
+    }
+```
+```javascript
+ <button type="submit" className="btn btn-primary">{loading ? "Loading Image" : "Submit"}</button>
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
