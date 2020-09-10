@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import "../css/Comments.css"
 
 const Solution = (props) =>
 {
@@ -28,7 +29,7 @@ const Solution = (props) =>
             if (props.comment.starredOnPost)
             {
                 return (
-                    <button 
+                    <button className="comment-solution"
                         onClick={() => 
                         {
                             axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${post._id}/comments/editStatus`, {starredOnPost: false, comment: props.comment._id})
@@ -52,7 +53,7 @@ const Solution = (props) =>
             console.log(pickedSolution)
             console.log("PICK A SOLUTION")
             return (
-                <button 
+                <button className="comment-solution"
                     onClick={() =>
                     {
                         axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${post._id}/comments/editStatus`, {starredOnPost: true, comment: props.comment._id})

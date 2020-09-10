@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import axios from 'axios'
+import "../css/Post.css"
 
 const SolveToggle = (props) => {
     let solved = props.post.solved;
@@ -27,7 +28,7 @@ const SolveToggle = (props) => {
 
     return (
         <div>
-            <button onClick={handleSolved}>Change Status</button>
+            <button className="solve-toggle" onClick={handleSolved}>Change Status</button>
         </div>
     )
 }

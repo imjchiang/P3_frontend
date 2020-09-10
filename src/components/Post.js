@@ -4,6 +4,8 @@ import NewComment from './NewComment'
 import Solution from './Solution'
 import axios from 'axios';
 import SolveToggle from './SolveToggle';
+import "../css/Post.css"
+import "../css/Comments.css"
 
 function Post(props) {
     let referencedPost = props.location.state;
@@ -54,66 +56,111 @@ function Post(props) {
         <div>
             {post ? 
                 <div>
-                    <h3>{post.title}</h3>
-                    <p>Tags: {post.tags.map((p, idx) => {return <li key={idx}>{p.name}</li>})}</p>
-                    <p>Description: {post.descriptionAndCode}</p>
-                    <p>Author: {post.author && post.author.name ? post.author.name : "No Author Data Available"}</p>
-                    {/* <p>{post.upvote}</p> */}
-                    {/* <p>{post.downvote}</p> */}
+                    <p className="post-title">{post.title}</p>
+                    <hr />
 
-                    <p>Status: {post.solved ? "SOLVED" : "NOT SOLVED"}</p>
                     {props.user && post.author && props.user.id === post.author._id
                     ?
-                        <SolveToggle {...props} post={post}/>
+                        <div>
+                            <p className="post-status-title">Status: </p>
+                            <div className="post-status">
+                                <p className="post-status-content-special">{post.solved ? "SOLVED" : "NOT SOLVED"}</p>
+                                <SolveToggle {...props} post={post}/>
+                            </div>
+                        </div>
                     :
-                        console.log("INVALID USER")
+                        <div>
+                            <p className="post-status-title">Status: </p>
+                            <p className="post-status-content">{post.solved ? "SOLVED" : "NOT SOLVED"}</p>
+                        </div>
+
                     }
+
+                    <p className="post-tag-title">Tags: </p>
+                    <div className="all-post-tags">
+                        {post.tags.map((tag, idx) => 
+                        {
+                            return <button className="post-tag" key={idx}>{tag.name}</button>
+                        })}
+                    </div>
+
+                    <p className="post-desc-title">Description / Question: </p>
+                    <p className="post-desc">{post.descriptionAndCode}</p>
+
+                    {post.imgUrl && post.imgUrl.length > 0 
+                    ? 
+                        <>
+                            <p className="post-code-title">Code / Display: </p>
+                            <img className="post-code-img" src={post.imgUrl}/>
+                        </>
+                    : 
+                        <></>
+                    }
+
+                    <p className="post-author-title">Author: </p>
+                    <p className="post-author">{post.author && post.author.name ? post.author.name : "No Author Data Available"}</p>
+
+                    {/* <p>{post.upvote}</p> */}
+                    {/* <p>{post.downvote}</p> */}
                     
-                    <p>Date: {post.date}</p>
-                    {post.imgUrl && post.imgUrl.length > 0 ? (<p>Code: <img src={post.imgUrl}/></p>) : <></>}
+                    <p className="post-date-title">Timestamp: </p>
+                    <p className="post-date">{post.date}</p>
 
                     {/* post author has option to delete or edit post */}
                     {props.user && post.author && props.user.id === post.author._id
                     ?
                         <div className="edit-and-delete">
-                            <Link to={location} key={post._id}>Edit</Link>
-                            <button onClick={deletePost}>Delete</button>
+                            <Link className="post-edit-toggle" to={location} key={post._id}>Edit Post</Link>
+                            <button className="post-delete-toggle" onClick={deletePost}>Delete Post</button>
                         </div>
                     :
                         <div className="edit-and-delete"></div>
                     }
 
                     <hr />
-                    <h5>Comments</h5>
-                    <br />
+                    <hr />
+
+                    <p className="comment-title">Comments</p>
+                    <hr />
                     {post.comments.map((c, idx) =>
                     {
                         return(
                             <div key={idx}>
-                                {c.descriptionsAndCode}
-                                {c.imgUrl && c.imgUrl.length > 0 ? (<p>Code: <img src={c.imgUrl}/></p>) : <></>}
+                                <p className="comment-desc">{c.descriptionsAndCode}</p>
+
+                                {c.imgUrl && c.imgUrl.length > 0 
+                                ? 
+                                    <>
+                                        <p className="comment-img-title">Code / Display: </p>
+                                        <img className="comment-img" src={c.imgUrl}/> 
+                                    </>
+                                : 
+                                    <></>
+                                }
+
                                 {console.log(c._id)}
                                 <br />
                                 {c.author
                                 ?
-                                    c.author.name
+                                    <>
+                                        <p className="comment-author-title">Author: </p>
+                                        <p className="comment-author">{c.author.name}</p>
+                                    </>
                                 :
                                     "No Author Data Available"
                                 }
-                                <br />
-                                <Solution {...props} post={post} user={props.user} comment={c}/>
-
 
                                 {props.user && c.author && props.user.id === c.author._id
                                 ?
                                     <div className="edit-and-delete-comment">
-                                        <Link to={{pathname: `/comment/edit`, state: c._id, postId: post._id}} key={post._id}>edit</Link>
-                                        <button onClick={() => deleteComment(c._id)}>delete</button>
+                                        <Link className="comment-edit-toggle" to={{pathname: `/comment/edit`, state: c._id, postId: post._id}} key={post._id}>edit</Link>
+                                        <button className="comment-delete-toggle" onClick={() => deleteComment(c._id)}>delete</button>
                                     </div>
                                 :
                                     <div className="edit-and-delete-comment"></div>
                                 }
 
+                                <Solution {...props} post={post} user={props.user} comment={c}/>
                                 <hr />
                             </div>
                         )

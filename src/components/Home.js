@@ -18,9 +18,9 @@ const Home = () =>
             <h2>- Why You Should Join -</h2>
             <h3 className="desc">
                 Create an account with us to have access to even more features such as . . .
-                <p className="first">{`\>`} asking your own questions {`\<`}</p>
-                <p>{`\>`} creating unique solutions {`\<`}</p>
-                <p>{`\>`} promoting good and helpful content {`\<`}</p>
+                <p className="first">{`>`} asking your own questions {`<`}</p>
+                <p>{`>`} creating unique solutions {`<`}</p>
+                <p>{`>`} promoting good and helpful content {`<`}</p>
             </h3>
             <h2>- Explore Your Questions Now -</h2>
             <div className="go-feed">
