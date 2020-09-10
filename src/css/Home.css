@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&family=Varela&display=swap');
+
+.title
+{
+    display: flex;
+    justify-content: center;
+    margin: 20vw 0 17vw 0;
+    font-size: 7vw;
+    font-family: "Varela", sans-serif;
+}
+
+h2
+{
+    text-align: center;
+    margin-bottom: 2vw;
+    font-size: 3vw;
+    font-family: "Varela", sans-serif;
+}
+
+.desc
+{
+    text-align: center;
+    margin-bottom: 13vw;
+    font-size: 1.4vw;
+    font-family: "Montserrat", sans-serif;
+}
+
+p
+{
+    margin: 0.5vw 0 0 0;
+    font-family: "Varela", sans-serif;
+}
+
+.first
+{
+    margin-top: 2vw;
+}
+
+.go-feed
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.explore
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4vw;
+    width: 14vw;
+    border: 2px solid #7e7e7e;
+    margin: 2vw 2vw 2vw 2vw;
+    color: #7e7e7e;
+    letter-spacing: 1.5px;
+    overflow: hidden;
+    font-size: 1.3vw;
+}
+
+.explore:hover
+{
+    color: #2D3142;
+    background-color: #d4d4d4;
+    text-decoration: none;
+}

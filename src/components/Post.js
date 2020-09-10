@@ -123,7 +123,7 @@ function Post(props) {
             : 
                 <h3>Loading...</h3>
             }
-            <p>YEET</p>
+            <br />
             <br />
             <br />
             <br />
