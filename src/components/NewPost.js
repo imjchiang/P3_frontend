@@ -34,45 +34,57 @@ const NewPostForm = (props) => {
         );
     };
 
-    let uploadImage = async e => {
+    let uploadImage = async e => 
+    {
+        setLoading(true);
         const files = e.target.files
         const data = new FormData()
         data.append('file', files[0])
         data.append('upload_preset', 'scft486b')
-        const res = await fetch(
-            `https://api.cloudinary.com/v1_1/dc8ufznd0/image/upload`,
-            {
-                method: 'POST',
-                body: data
-            }
-        )
-        const file = await res.json() 
-        setImgUrl(file.secure_url)
-        setLoading(false)
-        console.log(file.secure_url)       
+        if (data)
+        {
+            const res = await fetch(
+                `https://api.cloudinary.com/v1_1/dc8ufznd0/image/upload`,
+                {
+                    method: 'POST',
+                    body: data
+                }
+            )
+            const file = await res.json() 
+            setImgUrl(file.secure_url)
+            setLoading(false)
+            console.log(file.secure_url)
+        }
+        else
+        {
+            setLoading(false);
+        }
     }
 
     let submitForm = (e) => {
         e.preventDefault()
         // passing state variable works for key and value pair
-        console.log(tags);
-        let author = props.user.id;
-        let newPost = { title, descriptionAndCode, tags, author, imgUrl }
-        console.log(author);
-        console.log(newPost)
+        if (!loading)
+        {
+            console.log(tags);
+            let author = props.user.id;
+            let newPost = { title, descriptionAndCode, tags, author, imgUrl }
+            console.log(author);
+            console.log(newPost)
 
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/api/posts/`, newPost)
-        .then(()=> {
-            setTitle("")
-            setTags()
-            setDescriptionAndCode("")
-            setImgUrl("")
-                     
-            // setAuthor(props.user.id);
-           history.push("/allPosts")
-        })
-        .catch(error => console.log(error))
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/api/posts/`, newPost)
+            .then(()=> {
+                setTitle("")
+                setTags()
+                setDescriptionAndCode("")
+                setImgUrl("")
+                setLoading(true);
+                // setAuthor(props.user.id);
+            history.push("/allPosts")
+            })
+            .catch(error => console.log(error))
         }
+    }
 
     return (
         <>
@@ -130,7 +142,7 @@ const NewPostForm = (props) => {
                                             )
                                         })}
 
-                                        <button type="submit" className="btn btn-primary">Submit</button>
+                                        <button type="submit" className="btn btn-primary">{loading ? "Loading Image" : "Submit"}</button>
                                     </form>
                                   
                                 </div>

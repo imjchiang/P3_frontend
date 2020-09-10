@@ -91,6 +91,7 @@ function Post(props) {
                         return(
                             <div key={idx}>
                                 {c.descriptionsAndCode}
+                                {c.imgUrl ? <p>Code: <img src={c.imgUrl}/></p> : <></>}
                                 {console.log(c._id)}
                                 <br />
                                 {c.author
@@ -101,7 +102,7 @@ function Post(props) {
                                 }
                                 <br />
                                 <Solution {...props} post={post} user={props.user} comment={c}/>
-                                
+
 
                                 {props.user && c.author && props.user.id === c.author._id
                                 ?

@@ -5,23 +5,57 @@ import {useHistory, Link} from 'react-router-dom'
 
 const EditComment = (props) => {
     let [descriptionsAndCode, setDescriptionsAndCode] = useState("") 
+    let [imgUrl, setImgUrl] = useState("")
+    let [loading, setLoading] = useState(false)
     let history = useHistory()
 
     let referencedComment = props.location.state;
     let referencedPost = props.location.postId;
 
+    let uploadImage = async e => 
+    {
+        setLoading(true);
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append('upload_preset', 'scft486b')
+        if (data)
+        {
+            const res = await fetch(
+                `https://api.cloudinary.com/v1_1/dc8ufznd0/image/upload`,
+                {
+                    method: 'POST',
+                    body: data
+                }
+            )
+            const file = await res.json() 
+            setImgUrl(file.secure_url)
+            setLoading(false)
+            console.log(file.secure_url)
+        }
+        else
+        {
+            setLoading(false);
+        }
+    }
+
     let submitForm = (e) => {
         e.preventDefault()
         // passing state variable works for key and value pair
-        let author = props.user.id
-        let editComment = { descriptionsAndCode, author, referencedComment}
-        console.log(editComment);
-        axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost}/comments/edit`, editComment)
-        .then(()=> {
-            setDescriptionsAndCode("")
-            history.goBack()
-        })
-        .catch(error => console.log(error))
+        if (!loading)
+        {
+            let author = props.user.id
+            let editComment = { descriptionsAndCode, author, referencedComment}
+            console.log(editComment);
+            axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost}/comments/edit`, editComment)
+            .then(()=> {
+                setDescriptionsAndCode("")
+                setImgUrl("")
+                setLoading(true);
+                history.goBack()
+            })
+            .catch(error => console.log(error))
+        }
     }
     
     const errorDiv = () =>
@@ -42,7 +76,11 @@ const EditComment = (props) => {
                         <label htmlFor="descriptionsAndCode">Description or Code</label>
                             <textarea type="text" name="descriptionsAndCode" value={descriptionsAndCode} onChange={(e) => {setDescriptionsAndCode([e.target.value])}} className="form-control" required/>
                     </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <div className="form-group col-md-6">
+                            <label htmlFor="image">Code Image</label>
+                                <input type="file" name="image" onChange={uploadImage} className="form-control"/>
+                        </div> 
+                    <button type="submit" className="btn btn-primary">{loading ? "Loading Image" : "Submit"}</button>
                 </form>
             :
                 <>
