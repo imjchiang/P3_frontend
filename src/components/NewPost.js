@@ -3,15 +3,16 @@ import axios from 'axios';
 // import loadingGif from './spinner.gif';
 import { Link, useHistory } from 'react-router-dom';
 
-const url = 'https://api.cloudinary.com/v1_1/dc8ufznd0'
-const preset = 'ml_default'
+
+const url = 'https://api.cloudinary.com/v1_1/dc8ufznd0/'
+const preset = 'wctvloqy'
 
 const NewPostForm = (props) => {
     let [title, setTitle]= useState("")
     let [tags, setTags] = useState([])
     let [descriptionAndCode, setDescriptionAndCode] = useState("")
-    let [imageUrl, setImageUrl] = useState("")
-    let [image, setImage] = useState('');
+    let [loading, setLoading] = useState(false)
+    let [imgUrl, setImgUrl] = useState("");
     let [allTags, setAllTags] = useState("");
     let history = useHistory()
 
@@ -25,6 +26,26 @@ const NewPostForm = (props) => {
         });
     }, []);
 
+    const uploadImage = async e => {
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append('upload_preset', 'scft486b')
+        const res = await fetch(
+            `https://api.cloudinary.com/v1_1/dc8ufznd0/image/upload`,
+            {
+                method: 'POST',
+                body: data
+            }
+        )
+        const file = await res.json()
+ 
+        setImgUrl(file.secure_url)
+        setLoading(false)
+        console.log(file.secure_url)
+       
+        }
+
     const errorDiv = () =>
     {
         return(
@@ -34,66 +55,39 @@ const NewPostForm = (props) => {
         );
     };
 
-    const onChange = e => {
-      setImage(e.target.files[0]);
-    };
+    // const onChange = e => {
+    //   setImage(e.target.files[0])
+    //   console.log("image"+image)
+    // };
 
-    // const onSubmit = async () => {
-    //     const formData = new FormData();
-    //     formData.append('file', image);
-    //     formData.append('upload_preset', preset);
-    //     try {
-    //     //   setLoading(true);
-    //       const res = await axios.post(url, formData);
-    //       setImageUrl = res.data.secure_url;
-    //       const image = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/`, {
-    //         imageUrl
-    //       });
-    //     //   setLoading(false);
-    //       setImage(image.data);
-    //     } catch (err) {
-    //       console.error(err);
-    //     }
-    //   };
 
     let submitForm = (e) => {
         e.preventDefault()
         // passing state variable works for key and value pair
         console.log(tags);
         let author = props.user.id;
-        let newPost = { title, descriptionAndCode, tags, author, imageUrl }
+        let newPost = { title, descriptionAndCode, tags, author, imgUrl }
         console.log(author);
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/api/posts/`, newPost)
+        console.log(newPost)
+
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/api/posts/`, newPost)
 
         .then(()=> {
             setTitle("")
             setTags()
             setDescriptionAndCode("")
-            setImageUrl();
+            setImgUrl("")
+            
+            
             // setAuthor(props.user.id);
            history.push("/allPosts")
         })
-
         .catch(error => console.log(error))
 
-        const formData = new FormData();
-        formData.append('file', image);
-        formData.append('upload_preset', preset);
-        
-        //   setLoading(true);
-          axios.post(url, formData)
-          .then((req,res )=> {
-          setImageUrl = res.data.secure_url;
 
-        //   setLoading(false);
-          setImage(image.data);
-        }) .catch ((err) => {
-          console.error(err);
-        })
+        }
 
 
-
-    }
 
 
 
@@ -118,14 +112,8 @@ const NewPostForm = (props) => {
                                         </div>
                                         <div className="form-group col-md-6">
                                             <label htmlFor="image">Code Image</label>
-                                                <input type="file" name="image" onChange={(e) => {setImage=([e.target.files])}} className="form-control" />
-                                                <input type= "submit" ></input>
-                                        </div>
-                                        {/* <div className='center'>
-                                            {/* <button onClick={onSubmit} className='btn center'>
-                                            upload
-                                            </button> */}
-                                
+                                                <input type="file" name="image" onChange={uploadImage} className="form-control"/>
+                                        </div>                                
                                         <h5>Tags (choose 5 tags max)</h5>
                                         {allTags.map((eachTag, idx) =>
                                         {
@@ -161,6 +149,7 @@ const NewPostForm = (props) => {
 
                                         <button type="submit" className="btn btn-primary">Submit</button>
                                     </form>
+                                  
                                 </div>
                             </div>
                         </div>
