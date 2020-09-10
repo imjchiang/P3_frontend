@@ -70,7 +70,7 @@ function Post(props) {
                     }
                     
                     <p>Date: {post.date}</p>
-                    <p>Code: <img src={post.imgUrl}/></p>
+                    {post.imgUrl && post.imgUrl.length > 0 ? (<p>Code: <img src={post.imgUrl}/></p>) : <></>}
 
                     {/* post author has option to delete or edit post */}
                     {props.user && post.author && props.user.id === post.author._id
@@ -91,8 +91,7 @@ function Post(props) {
                         return(
                             <div key={idx}>
                                 {c.descriptionsAndCode}
-                                {console.log(c.imgUrl)}
-                                {c.imgUrl ? <p>Code: <img src={c.imgUrl}/></p> : <></>}
+                                {c.imgUrl && c.imgUrl.length > 0 ? (<p>Code: <img src={c.imgUrl}/></p>) : <></>}
                                 {console.log(c._id)}
                                 <br />
                                 {c.author

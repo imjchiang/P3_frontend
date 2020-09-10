@@ -76,7 +76,7 @@ const NewComment = (props) => {
                 </div>  
                 {props.user
                 ?
-                    <button onClick={refreshPage} type="submit" className="btn btn-primary">{loading ? "Loading Image" : "Submit"}</button>
+                    <>{loading ? <button className="btn btn-primary">Loading</button> : <button onClick={refreshPage} type="submit" className="btn btn-primary">Submit</button>}</>
                 :
                     <Link to="/login">
                         <button className="btn btn-primary">Login to Comment</button>
