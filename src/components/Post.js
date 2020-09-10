@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import NewComment from './NewComment'
+import Solution from './Solution'
 import axios from 'axios';
 import SolveToggle from './SolveToggle';
 
@@ -88,20 +89,7 @@ function Post(props) {
                     {
                         return(
                             <div key={idx}>
-                                {/* //author verification */}
-                                {props.user && post.author && props.user.id === post.author._id
-                                ?
-                                    console.log("YOU ARE THE POST AUTHOR")
-                                    //parse through all comments to check if at least one has been marked as the solution
-                                        //if yes, can only mark "starredOnPost" as false
-                                            //refresh page
-                                        //if no, can only mark "starredOnPost" as true
-                                            //refresh page
-                                :
-                                    console.log("NOT THE POST AUTHOR")
-                                }
-
-
+                                <Solution {...props} post={post} user={props.user} comment={c}/>
                                 {c.descriptionsAndCode}
                                 {console.log(c._id)}
                                 <br />
