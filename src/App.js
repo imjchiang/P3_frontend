@@ -26,6 +26,11 @@ const PrivateRoute = ({component: Component, ...rest}) =>
   }} />;
 }
 
+const pageNotFound = () =>
+{
+  return <h1>ERROR 404: PAGE NOT FOUND</h1>
+}
+
 function App() 
 {
   //set state values
@@ -101,6 +106,7 @@ function App()
           </Route>
           <PrivateRoute path="/profile" component={Profile} user={currentUser} />
           <Route exact path="/" component={Home} />
+          <Route component={pageNotFound} />
         </Switch>
       </div>
       <Footer />
