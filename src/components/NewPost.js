@@ -10,7 +10,7 @@ const NewPostForm = (props) => {
     let [tags, setTags] = useState([])
     let [descriptionAndCode, setDescriptionAndCode] = useState("")
     let [loading, setLoading] = useState(false)
-    let [imgUrl, setImgUrl] = useState("");
+    let [imgUrl, setImgUrl] = useState();
     let [allTags, setAllTags] = useState("");
     let history = useHistory()
 

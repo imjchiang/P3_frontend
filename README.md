@@ -21,11 +21,11 @@ This is an app to explore the theory behind coding, to ask questions on coding, 
 
 ## Wireframes
 
-![Home](/public/wireframes/HomePage.jpeg)
-![AllPosts](/public/wireframes/AllPosts.jpeg)
-![Post](/public/wireframes/SpecificPost.jpeg)
-![EditPost](/public/wireframes/EditPost.jpeg)
-![Profile](/public/wireframes/ProfilePage.jpeg)
+![Home](./public/wireframes/HomePage.jpg)
+![AllPosts](./public/wireframes/AllPosts.jpg)
+![Post](./public/wireframes/SpecificPost.jpg)
+![EditPost](./public/wireframes/EditPost.jpg)
+![Profile](./public/wireframes/ProfilePage.jpg)
 
 
 

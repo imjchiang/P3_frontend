@@ -76,13 +76,20 @@ function Post(props) {
 
                     }
 
-                    <p className="post-tag-title">Tags: </p>
-                    <div className="all-post-tags">
-                        {post.tags.map((tag, idx) => 
-                        {
-                            return <button className="post-tag" key={idx}>{tag.name}</button>
-                        })}
-                    </div>
+                    {post.tags && post.tags.length > 0
+                    ?
+                        <>
+                            <p className="post-tag-title">Tags: </p>
+                            <div className="all-post-tags">
+                                {post.tags.map((tag, idx) => 
+                                {
+                                    return <button className="post-tag" key={idx}>{tag.name}</button>
+                                })}
+                            </div>
+                        </>
+                    :
+                        <></>
+                    }
 
                     <p className="post-desc-title">Description / Question: </p>
                     <p className="post-desc">{post.descriptionAndCode}</p>
@@ -126,6 +133,7 @@ function Post(props) {
                     {
                         return(
                             <div key={idx}>
+                                {c.starredOnPost ? <p className="comment-solution">Marked by author of post as solution</p> : <></>}
                                 <p className="comment-desc">{c.descriptionsAndCode}</p>
 
                                 {c.imgUrl && c.imgUrl.length > 0 

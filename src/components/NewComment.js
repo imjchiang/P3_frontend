@@ -7,7 +7,7 @@ const NewComment = (props) => {
 
     let [descriptionsAndCode, setDescriptionsAndCode] = useState("") 
     let [loading, setLoading] = useState(false)
-    let [imgUrl, setImgUrl] = useState("");
+    let [imgUrl, setImgUrl] = useState();
 
     let uploadImage = async e => 
     {
