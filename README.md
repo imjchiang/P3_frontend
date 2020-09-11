@@ -3,12 +3,12 @@
 
 This is an app to explore the theory behind coding, to ask questions on coding, debugging, and to help others in the community of coders that collectively ask, learn, and help.
 
-## Teachnologies Used
+## Technologies Used
 - MERN (MongoDB, ExpressJS, ReactJS, NodeJS) & CSS
 - passport, passport-local
-- dotenv: hold session secret and api keys
+- dotenv: REACT_APP_SERVER_URL="http://localhost:8000" (connect to server)
 - axios: communicate with server
-- cloudinary: to save images
+- cloudinary: images stuff
 
 ## User Stories
 ### Users are able to login and post issues they are having with their code
@@ -25,7 +25,7 @@ This is an app to explore the theory behind coding, to ask questions on coding, 
 ![AllPosts](/public/wireframes/AllPosts.jpeg)
 ![Post](/public/wireframes/SpecificPost.jpeg)
 ![EditPost](/public/wireframes/EditPost.jpeg)
-![Profile](/public/wireframes/Profile.jpeg)
+![Profile](/public/wireframes/ProfilePage.jpeg)
 
 
 
@@ -218,5 +218,59 @@ let uploadImage = async e =>
 ```
 ```javascript
  <button type="submit" className="btn btn-primary">{loading ? "Loading Image" : "Submit"}</button>
+```
+
+## CRUD - frontend
+
+- AllPost.js : get the data from axios
+```javascript
+ useEffect(() =>
+    {
+        axios.get(`${process.env.REACT_APP_SERVER_URL}/api/tags`)
+        .then(response =>
+        {
+            console.log(response.data);
+            setAllTags(response.data);
+        });
+    }, []);
+```
+
+- NewPost.js : create a new post 
+```javascript
+axios.post(`${process.env.REACT_APP_SERVER_URL}/api/posts/`, newPost)
+            .then(()=> {
+                setTitle("")
+                setTags()
+                setDescriptionAndCode("")
+                setImgUrl("")
+                setLoading(true);
+                // setAuthor(props.user.id);
+            history.push("/allPosts")
+            })
+```
+
+- EditPost.js : edit and update a post
+```javascript
+axios.put(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost._id}`, newPost)
+            .then(()=> {
+                setTitle("")
+                setTags([])
+                setDescriptionAndCode("")
+                setImgUrl("")
+                setLoading(true);
+                // loading = true;
+                // reset back
+            history.goBack()
+            })
+```
+
+- Post.js : delete a post
+```javascript
+axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/posts/${referencedPost._id}`)
+        .then(response =>
+        {
+            console.log(response.data);
+            history.push('/allPosts')
+        });
 ```
 
