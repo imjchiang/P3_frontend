@@ -14,6 +14,7 @@ import AllPosts from './components/AllPosts';
 import Footer from './components/Footer';
 import EditPost from './components/EditPost'
 import EditComment from './components/EditComment'
+import ErrorPage from './components/ErrorPage'
 
 import './App.css';
 
@@ -24,11 +25,6 @@ const PrivateRoute = ({component: Component, ...rest}) =>
   {
     return user ? <Component {...rest} {...props} /> : <Redirect to="/login" />
   }} />;
-}
-
-const pageNotFound = () =>
-{
-  return <h1>ERROR 404: PAGE NOT FOUND</h1>
 }
 
 function App() 
@@ -106,7 +102,7 @@ function App()
           </Route>
           <PrivateRoute path="/profile" component={Profile} user={currentUser} />
           <Route exact path="/" component={Home} />
-          <Route component={pageNotFound} />
+          <Route component={ErrorPage} />
         </Switch>
       </div>
       <Footer />
