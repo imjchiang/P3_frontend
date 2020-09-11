@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;1,300&family=Varela&display=swap');
+
+h2
+{
+    text-align: center;
+    margin-bottom: 2vw;
+    font-size: 3vw;
+    font-family: "Varela", sans-serif;
+}
+
+.profile-posts-title
+{
+    font-size: 1.4vw;
+    color: #555169;
+    font-family: "Varela", sans-serif;
+}
+
+.profile-posts-title:hover
+{
+    color: #53cab0;
+    text-decoration: none;
+}
+
+.profile-posts-desc
+{
+    margin-top: 0.2vw;
+    font-size: 0.85vw;
+    font-family: "Montserrat", sans-serif;
+    color: #797979;
+    letter-spacing: 0.03vw;
+}
+
+.profile-posts-author
+{
+    font-size: 0.85vw;
+    font-family: "Varela", sans-serif;
+}
+
+.profile-subtitle
+{
+    margin-bottom: 1.5vw;
+    font-size: 1.9vw;
+    font-family: "Varela", sans-serif;
+}
+
+/* margin-bottom: 0.5vw; */

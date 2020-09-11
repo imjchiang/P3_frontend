@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import "../css/Profile.css"
 
 const Profile = (props) =>
 {
@@ -58,16 +59,17 @@ const Profile = (props) =>
             {props.user 
             ? 
                 <>
-                    <h1>{props.user.name}'s Profile</h1>
+                    <h2>- {props.user.name}'s Profile -</h2>
                     <hr />
 
-                    <h3>Info</h3>
+                    <h3 className="profile-subtitle">Info</h3>
                     <p><strong>Email:</strong> {props.user.email}</p>
                     <p><strong>Number of Posts:</strong> {totalPosts}</p>
                     <p><strong>Number of Posts Commented On:</strong> {totalComments}</p>
                     <hr />
+                    <hr />
 
-                    <h3>{props.user.name}'s Posts</h3>
+                    <h3 className="profile-subtitle">{props.user.name}'s Posts</h3>
                     <div>
                         {posts.map((post, idx) => 
                         {
@@ -80,19 +82,31 @@ const Profile = (props) =>
                                 }
                                 return (
                                     <div key={idx}>
-                                        <Link to={location} key={post._id}>
-                                            {post.title}
+                                        <Link className="profile-posts-title" to={location} key={post._id}>
+                                            {post.title.length > 50 
+                                            ? 
+                                                post.title.substring(0, 50) + " . . ."
+                                            :
+                                                post.title
+                                            }
                                         </Link>
                                         <br/>
-                                        {post.descriptionAndCode}
-                                        <br/>
+                                        <p className="profile-posts-desc">
+                                            {post.descriptionAndCode[0].length > 250
+                                            ?
+                                                post.descriptionAndCode[0].substring(0, 250) + " . . ."
+                                            :
+                                                post.descriptionAndCode
+                                            }
+                                        </p>
                                         <hr />
                                     </div>
                                 )
                             }
                         })}
                     </div>
-                    <h3>Posts {props.user.name} Commented On</h3>
+                    <hr />
+                    <h3 className="profile-subtitle">Posts {props.user.name} Commented On</h3>
                     <div>
                         {specificPosts.map((sp, idx) => 
                         {
@@ -109,20 +123,24 @@ const Profile = (props) =>
                                         return(
                                             <div key={idx}>
                                                 {console.log(post)}
-                                                <Link to={location} key={post._id}>
-                                                    {post.title}
-                                                    {console.log(post.title)}
+                                                <Link className="profile-posts-title" to={location} key={post._id}>
+                                                    {post.title.length > 50 
+                                                    ? 
+                                                        post.title.substring(0, 50) + " . . ."
+                                                    :
+                                                        post.title
+                                                    }
                                                 </Link>
-                                                <br />
-                                                {console.log(post.author)}
-                                                {/* {post.author ? post.author.name : "NO AUTHOR DATA FOUND"} */}
-                                                {console.log(post.author.name)}
-                                                <br />
-                                                {post.descriptionAndCode}
-                                                {console.log(post.descriptionAndCode)}
-                                                <br />
+                                                <p className="profile-posts-desc">
+                                                    {post.descriptionAndCode[0].length > 250
+                                                    ?
+                                                        post.descriptionAndCode[0].substring(0, 250) + " . . ."
+                                                    :
+                                                        post.descriptionAndCode
+                                                    }
+                                                </p>
+                                                <p className="profile-posts-author">Posted by {post.author ? post.author.name : "NO AUTHOR DATA FOUND"}</p>
                                                 <hr />
-                                                {console.log("INSIDE")}
                                             </div>
                                         )
                                     }
@@ -130,7 +148,7 @@ const Profile = (props) =>
                             )
                         })}
                     </div>
-                    <p>YEET</p>
+                    <br />
                     <br />
                     <br />
                     <br />
