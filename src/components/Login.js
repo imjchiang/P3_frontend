@@ -84,11 +84,6 @@ const Login = (props) =>
             <br />
             <br />
             <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
         </div>
     );
 }
