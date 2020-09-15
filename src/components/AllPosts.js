@@ -136,39 +136,46 @@ const Feed = (props) =>
             }
 
             <div>
-                {posts.map((post, idx) => 
-                {
-                    let location = 
+                {posts
+                ?
+                    <>
+                    {posts.map((post, idx) => 
                     {
-                        pathname: `/post`,
-                        state: post
-                    }
-                    return (
-                        <div key={idx}>
-                            <Link className="allposts-title" to={location} key={post._id}>
-                                {post.title.length > 50 
-                                ? 
-                                    post.title.substring(0, 50) + " . . ."
-                                :
-                                    post.title
-                                }
-                            </Link>
-                            <br/>
-                            <div className="allposts-desc">
-                                {post.descriptionAndCode[0].length > 250
-                                ?
-                                    post.descriptionAndCode[0].substring(0, 250) + " . . ."
-                                :
-                                    post.descriptionAndCode
-                                }
+                        let location = 
+                        {
+                            pathname: `/post`,
+                            state: post
+                        }
+                        return (
+                            <div key={idx}>
+                                <Link className="allposts-title" to={location} key={post._id}>
+                                    {post.title.length > 50 
+                                    ? 
+                                        post.title.substring(0, 50) + " . . ."
+                                    :
+                                        post.title
+                                    }
+                                </Link>
+                                <br/>
+                                <div className="allposts-desc">
+                                    {post.descriptionAndCode[0].length > 250
+                                    ?
+                                        post.descriptionAndCode[0].substring(0, 250) + " . . ."
+                                    :
+                                        post.descriptionAndCode
+                                    }
+                                </div>
+                                <div className="allposts-author">
+                                    {post.author ? "Posted by " + post.author.name : "No author available"}
+                                </div>
+                                <hr />
                             </div>
-                            <div className="allposts-author">
-                                {post.author ? "Posted by " + post.author.name : "No author available"}
-                            </div>
-                            <hr />
-                        </div>
-                    )
-                })}
+                        )
+                    })}
+                    </>
+                :
+                    <></>
+                }
             </div>
             <br />
             <br />
