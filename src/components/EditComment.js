@@ -88,6 +88,15 @@ const EditComment = (props) => {
                     {errorDiv()}
                 </>
             }
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
         </div>
     )
 }

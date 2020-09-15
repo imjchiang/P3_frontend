@@ -166,6 +166,15 @@ const EditPost = (props) => {
                     {errorDiv()}
                 </>
             }
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
         </>
     )
   

@@ -151,6 +151,15 @@ const NewPostForm = (props) => {
                         :
                         <h3>Loading...</h3>
                     }
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
                 </>
             :
                 <>{errorDiv()}</>
