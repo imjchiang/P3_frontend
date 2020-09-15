@@ -41,16 +41,6 @@ const Login = (props) =>
         .catch(err => console.log("Login error", err));
     }
 
-    const manyBreaks = () =>
-    {
-        let breaks;
-        for (let i = 0; i < 50; i++)
-        {
-            breaks += (<br />);
-        }
-        console.log(breaks);
-    }
-
     if (props.user) return <Redirect to="/profile" user={props.user} />;
 
     return(
@@ -71,7 +61,72 @@ const Login = (props) =>
                     </form>
                 </div>
             </div>
-            {manyBreaks}
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
         </div>
     );
 }
